@@ -1,0 +1,15 @@
+package vv.resource;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+
+@RestController
+public class EventResource {
+
+    @RequestMapping("/dashboard")
+    public Principal index(Principal principal){
+        return principal;
+    }
+}
