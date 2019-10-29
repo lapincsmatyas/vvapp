@@ -11,4 +11,5 @@ import vv.model.EventType;
 public interface EventTypeMapper {
     EventTypeMapper INSTANCE = Mappers.getMapper(EventTypeMapper.class);
     EventTypeDTO eventTypeToEventTypeDto(EventType event);
+    EventType eventTypeDtoToEventType(EventTypeDTO eventTypeDTO);
 }

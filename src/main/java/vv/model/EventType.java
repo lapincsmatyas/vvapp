@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @SequenceGenerator(name = "event_type_id_seq", sequenceName = "event_type_id_seq")
+@SequenceGenerator(name = "event_type_id_seq", sequenceName = "event_type_id_seq", initialValue = 1, allocationSize = 1)
 public class EventType {
 
     @Id

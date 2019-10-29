@@ -1,11 +1,7 @@
 package vv.resource;
 
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vv.dto.EventDTO;
 import vv.helper.mapper.EventMapper;
 import vv.model.Event;
@@ -34,5 +30,12 @@ public class EventResource {
             return EventMapper.INSTANCE.eventToEventDto(event);
         }
         else return null;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public EventDTO addEvent(@RequestBody EventDTO eventDTO){
+        Event event = EventMapper.INSTANCE.eventDtoToEvent(eventDTO);
+        eventRepository.save(event);
+        return EventMapper.INSTANCE.eventToEventDto(event);
     }
 }
