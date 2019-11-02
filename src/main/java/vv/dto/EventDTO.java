@@ -1,17 +1,10 @@
 package vv.dto;
 
 public class EventDTO {
-    private String eventId;
+    private Long eventId;
     private String name;
     private EventTypeDTO eventType;
 
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
 
     public String getName() {
         return name;
@@ -27,5 +20,13 @@ public class EventDTO {
 
     public void setEventType(EventTypeDTO eventType) {
         this.eventType = eventType;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 }

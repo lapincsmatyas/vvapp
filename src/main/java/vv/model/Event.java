@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(name = "event_id_seq", sequenceName = "event_id_seq")
-@SequenceGenerator(name = "event_id_seq", sequenceName = "event_id_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "event_event_id_seq", sequenceName = "event_event_id_seq")
+@SequenceGenerator(name = "event_event_id_seq", sequenceName = "event_event_id_seq", initialValue = 1, allocationSize = 1)
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_event_id_seq")
     @Column(name = "event_id")
     private Long eventId;
 
