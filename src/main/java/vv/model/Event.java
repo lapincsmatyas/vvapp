@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @SequenceGenerator(name = "event_event_id_seq", sequenceName = "event_event_id_seq")
@@ -20,6 +21,9 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventTypeId")
     private EventType eventType;
+
+    @OneToMany(mappedBy = "event")
+    private Set<Participation> participations;
 
     public String getName() {
         return name;
@@ -43,5 +47,13 @@ public class Event {
 
     public void setEventType(EventType eventType) {
         this.eventType = eventType;
+    }
+
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
     }
 }

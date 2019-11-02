@@ -1,6 +1,7 @@
 package vv.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @SequenceGenerator(name = "senior_senior_id_seq", sequenceName = "senior_senior_id_seq")
@@ -14,6 +15,9 @@ public class Senior {
 
     private String name;
     private String email;
+
+    @OneToMany(mappedBy = "senior")
+    private Set<Participation> participations;
 
     public String getName() {
         return name;
@@ -37,5 +41,13 @@ public class Senior {
 
     public void setSeniorId(Long seniorId) {
         this.seniorId = seniorId;
+    }
+
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
     }
 }
