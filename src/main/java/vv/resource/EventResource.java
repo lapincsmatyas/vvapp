@@ -3,6 +3,7 @@ package vv.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.EventDTO;
+import vv.dto.EventDetailDTO;
 import vv.helper.mapper.EventMapper;
 import vv.model.Event;
 import vv.repository.EventRepository;
@@ -24,10 +25,10 @@ public class EventResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public EventDTO getEventById(@PathVariable("id") long id){
+    public EventDetailDTO getEventById(@PathVariable("id") long id){
         Event event = eventRepository.findById(id).orElse(null);
         if(event != null){
-            return EventMapper.INSTANCE.eventToEventDto(event);
+            return EventMapper.INSTANCE.eventToEventDetailDto(event);
         }
         else return null;
     }

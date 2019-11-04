@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import vv.dto.EventDTO;
 import vv.dto.ParticipationDTO;
 import vv.dto.SeniorDTO;
+import vv.dto.SeniorDetailDTO;
 import vv.helper.mapper.ParticipationMapper;
 import vv.helper.mapper.SeniorMapper;
 import vv.model.Event;
@@ -30,10 +31,14 @@ public class SeniorResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public SeniorDTO getSeniorById(@PathVariable("id") long id){
+    public SeniorDetailDTO getSeniorById(@PathVariable("id") long id) {
         Senior senior = seniorRepository.findById(id).orElse(null);
-        if(senior != null){
-            return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
+        if (senior != null) {
+            SeniorDetailDTO seniorDetailDTO = SeniorMapper.INSTANCE.seniorToSeniorDetailDto(senior);
+            seniorDetailDTO.setParticipations(
+                    senior.getParticipations().stream().map(
+                            SeniorMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList()));
+            return seniorDetailDTO;
         }
         else return null;
     }
