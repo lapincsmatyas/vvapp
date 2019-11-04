@@ -2,11 +2,17 @@ package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import vv.dto.EventDTO;
+import vv.dto.ParticipationDTO;
 import vv.dto.SeniorDTO;
+import vv.helper.mapper.ParticipationMapper;
 import vv.helper.mapper.SeniorMapper;
+import vv.model.Event;
+import vv.model.Participation;
 import vv.model.Senior;
 import vv.repository.SeniorRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,4 +44,16 @@ public class SeniorResource {
         seniorRepository.save(senior);
         return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
     }
+
+    @RequestMapping(value = "/{id}/participations", method = RequestMethod.GET)
+    public List<ParticipationDTO> getParticipationsOfSenior(@PathVariable("id") long id){
+        Senior senior = seniorRepository.findById(id).orElse(null);
+        if(senior != null){
+            List<Participation> participations = new ArrayList<>(senior.getParticipations());
+            return participations.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList());
+        }
+
+        return null;
+    }
+
 }
