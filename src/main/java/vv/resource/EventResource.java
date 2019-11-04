@@ -32,6 +32,12 @@ public class EventResource {
         else return null;
     }
 
+    @RequestMapping(value = "/event-type/{id}", method = RequestMethod.GET)
+    public List<EventDTO> getEventOfEventType(@PathVariable("id") long id) {
+        List<Event> events = eventRepository.findByEventTypeId(id);
+        return events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList());
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public EventDTO addEvent(@RequestBody EventDTO eventDTO){
         Event event = EventMapper.INSTANCE.eventDtoToEvent(eventDTO);

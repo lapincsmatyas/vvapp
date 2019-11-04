@@ -22,7 +22,7 @@ public class EventTypeResource {
     EventTypeRepository eventTypeRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<EventTypeDTO> getAllEvents(){
+    public List<EventTypeDTO> getAllEventTypes(){
         List<EventType> eventTypes = eventTypeRepository.findAll();
         return eventTypes.stream().map(EventTypeMapper.INSTANCE::eventTypeToEventTypeDto).collect(Collectors.toList());
     }
