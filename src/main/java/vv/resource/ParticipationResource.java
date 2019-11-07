@@ -39,9 +39,16 @@ public class ParticipationResource {
     public ReviewDTO addReviewToParticipation(
             @PathVariable("id") long participationId,
             @RequestParam("seniorId") long seniorId,
-            @RequestBody ReviewDTO reviewDTO){
+            @RequestBody ReviewDTO reviewDTO) {
         Review review = ReviewMapper.INSTANCE.reviewDtoToReview(reviewDTO);
         review = participationService.createReviewToParticipation(participationId, seniorId, review.getText());
         return ReviewMapper.INSTANCE.reviewToReviewDto(review);
+    }
+
+    @RequestMapping(value = "/{id}/review", method = RequestMethod.GET)
+    public List<ReviewDTO> getAllReviewsOfParticipation(
+            @PathVariable("id") long id) {
+        List<Review> reviews = participationService.getAllReviewsOfParticipation(id);
+        return reviews.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
     }
 }

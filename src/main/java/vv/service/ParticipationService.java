@@ -6,6 +6,7 @@ import vv.model.*;
 import vv.repository.ParticipationRepository;
 import vv.repository.ReviewRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -63,5 +64,12 @@ public class ParticipationService {
         review.setText(text);
         reviewRepository.save(review);
         return review;
+    }
+
+    public List<Review> getAllReviewsOfParticipation(long id) {
+        Participation participation = participationRepository.findById(id).orElse(null);
+        if(participation == null)
+            return null;
+        return new ArrayList<>(participation.getReviews());
     }
 }
