@@ -1,7 +1,5 @@
 package vv.dto;
 
-import vv.model.Senior;
-
 import java.util.List;
 
 public class EventDetailDTO {

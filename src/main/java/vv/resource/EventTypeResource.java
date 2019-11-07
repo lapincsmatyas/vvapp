@@ -9,7 +9,6 @@ import vv.helper.mapper.EventMapper;
 import vv.helper.mapper.EventTypeMapper;
 import vv.model.Event;
 import vv.model.EventType;
-import vv.repository.EventTypeRepository;
 import vv.service.EventService;
 import vv.service.EventTypeService;
 

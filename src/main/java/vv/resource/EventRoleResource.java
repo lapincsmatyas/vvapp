@@ -1,0 +1,38 @@
+package vv.resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import vv.dto.EventRoleDTO;
+import vv.helper.mapper.EventRoleMapper;
+import vv.model.EventRole;
+import vv.service.EventRoleService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/event-role")
+public class EventRoleResource {
+
+    @Autowired
+    EventRoleService eventRoleService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<EventRoleDTO> getAllEventRoles(){
+        List<EventRole> eventTypes = eventRoleService.getAllEventRoles();
+        return eventTypes.stream().map(EventRoleMapper.INSTANCE::eventRoleToEventRoleDto).collect(Collectors.toList());
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public EventRoleDTO addEventRole(@RequestBody EventRoleDTO eventRoleDTO){
+        EventRole eventRole = EventRoleMapper.INSTANCE.eventRoleDtoToEventType(eventRoleDTO);
+        eventRoleService.saveEventRole(eventRole);
+        return EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public EventRoleDTO getEventRoleById(@PathVariable long id){
+        EventRole eventRole = eventRoleService.getEventRoleById(id);
+        return EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole);
+    }
+}

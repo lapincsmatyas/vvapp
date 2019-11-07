@@ -1,7 +1,5 @@
 package vv.dto;
 
-import vv.model.Participation;
-
 import java.util.List;
 
 public class SeniorDetailDTO {

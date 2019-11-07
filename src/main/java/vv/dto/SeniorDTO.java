@@ -1,7 +1,5 @@
 package vv.dto;
 
-import java.util.List;
-
 public class SeniorDTO {
     private Long seniorId;
     private String name;

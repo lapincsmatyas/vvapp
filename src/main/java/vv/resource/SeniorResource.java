@@ -2,16 +2,13 @@ package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import vv.dto.EventDTO;
 import vv.dto.ParticipationDTO;
 import vv.dto.SeniorDTO;
 import vv.dto.SeniorDetailDTO;
 import vv.helper.mapper.ParticipationMapper;
 import vv.helper.mapper.SeniorMapper;
-import vv.model.Event;
 import vv.model.Participation;
 import vv.model.Senior;
-import vv.repository.SeniorRepository;
 import vv.service.ParticipationService;
 import vv.service.SeniorService;
 

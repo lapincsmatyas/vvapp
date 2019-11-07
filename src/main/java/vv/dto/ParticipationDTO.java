@@ -1,7 +1,5 @@
 package vv.dto;
 
-import vv.model.Senior;
-
 public class ParticipationDTO {
     private Long participationId;
     private EventDTO event;
