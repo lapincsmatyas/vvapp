@@ -1,6 +1,8 @@
 package vv.model;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @SequenceGenerator(name = "participation_participation_id_seq", sequenceName = "participation_participation_id_seq")
@@ -21,6 +23,9 @@ public class Participation {
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
+
+    @OneToMany(mappedBy = "participation")
+    private Set<Review> reviews;
 
     public Senior getSenior() {
         return senior;
@@ -52,5 +57,13 @@ public class Participation {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 }

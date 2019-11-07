@@ -19,6 +19,9 @@ public class Senior {
     @OneToMany(mappedBy = "senior")
     private Set<Participation> participations;
 
+    @OneToMany(mappedBy = "senior")
+    private Set<Review> reviews;
+
     public String getName() {
         return name;
     }
