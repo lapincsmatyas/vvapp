@@ -25,26 +25,26 @@ public class EventTypeResource {
     @Autowired
     EventService eventService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<EventTypeDTO> getAllEventTypes(){
         List<EventType> eventTypes = eventTypeService.getAllEventTypes();
         return eventTypes.stream().map(EventTypeMapper.INSTANCE::eventTypeToEventTypeDto).collect(Collectors.toList());
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public EventTypeDTO addEventType(@RequestBody EventTypeDTO eventTypeDTO){
         EventType eventType = EventTypeMapper.INSTANCE.eventTypeDtoToEventType(eventTypeDTO);
         eventTypeService.saveEventType(eventType);
         return EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType);
     }
 
-    @RequestMapping(value = "/{id}/events", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/events")
     public List<EventDTO> getEventsForEventType(@PathVariable long id){
         List<Event> events = eventService.getEventsByEventTypeId(id);
         return events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public EventTypeDetailDTO getEventTypeById(@PathVariable long id){
         EventTypeDetailDTO eventTypeDetailDTO =
                 EventTypeMapper.INSTANCE.eventTypeToEventTypeDetailDto(eventTypeService.getEventTypeById(id));

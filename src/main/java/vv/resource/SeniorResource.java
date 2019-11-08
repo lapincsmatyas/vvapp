@@ -26,13 +26,13 @@ public class SeniorResource {
     @Autowired
     ParticipationService participationService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<SeniorDTO> getAllSeniors(){
         List<Senior> seniors = seniorService.getAllSeniors();
         return seniors.stream().map(SeniorMapper.INSTANCE::seniorToSeniorDto).collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public SeniorDetailDTO getSeniorById(@PathVariable("id") long id) {
         Senior senior = seniorService.getSeniorById(id);
         if (senior != null) {
@@ -45,14 +45,14 @@ public class SeniorResource {
         else return null;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public SeniorDTO addSenior(@RequestBody SeniorDTO seniorDTO){
         Senior senior = SeniorMapper.INSTANCE.seniorDtoToSenior(seniorDTO);
         seniorService.saveSenior(senior);
         return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
     }
 
-    @RequestMapping(value = "/{id}/participations", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/participations")
     public List<ParticipationDTO> getParticipationsOfSenior(@PathVariable("id") long id){
         Senior senior = seniorService.getSeniorById(id);
         if(senior != null){
@@ -62,7 +62,7 @@ public class SeniorResource {
         return null;
     }
 
-    @RequestMapping(value = "/{seniorId}/events", method = RequestMethod.POST)
+    @PostMapping(value = "/{seniorId}/events")
     public ParticipationDTO addEventToSenior(@PathVariable("seniorId") long seniorId, @RequestParam long eventId, @RequestParam long eventRoleId){
         return ParticipationMapper.INSTANCE.participationToParticipationDto(
                 participationService.createParticipation(eventId, seniorId, eventRoleId));

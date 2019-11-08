@@ -30,13 +30,13 @@ public class ReviewResource {
     @Autowired
     ParticipationService participationService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<ReviewDTO> getAllReviews(){
         List<Review> seniors = reviewService.getAllReviews();
         return seniors.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ReviewDTO getReviewById(@PathVariable("id") long id) {
         return ReviewMapper.INSTANCE.reviewToReviewDto(reviewService.getReviewById(id));
     }

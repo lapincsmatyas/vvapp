@@ -17,20 +17,20 @@ public class EventRoleResource {
     @Autowired
     EventRoleService eventRoleService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<EventRoleDTO> getAllEventRoles(){
         List<EventRole> eventTypes = eventRoleService.getAllEventRoles();
         return eventTypes.stream().map(EventRoleMapper.INSTANCE::eventRoleToEventRoleDto).collect(Collectors.toList());
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public EventRoleDTO addEventRole(@RequestBody EventRoleDTO eventRoleDTO){
         EventRole eventRole = EventRoleMapper.INSTANCE.eventRoleDtoToEventType(eventRoleDTO);
         eventRoleService.saveEventRole(eventRole);
         return EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public EventRoleDTO getEventRoleById(@PathVariable long id){
         EventRole eventRole = eventRoleService.getEventRoleById(id);
         return EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole);

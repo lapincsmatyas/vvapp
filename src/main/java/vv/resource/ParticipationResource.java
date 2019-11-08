@@ -24,18 +24,18 @@ public class ParticipationResource {
     @Autowired
     ParticipationService participationService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<ParticipationDTO> getAllParticipations() {
         List<Participation> events = participationService.getAllParticipations();
         return events.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ParticipationDetailDTO getParticipationById(@PathVariable("id") long id) {
         return ParticipationMapper.INSTANCE.participationToParticipationDetailDto(participationService.getParticipationById(id));
     }
 
-    @RequestMapping(value = "/{id}/review", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}/review")
     public ReviewDTO addReviewToParticipation(
             @PathVariable("id") long participationId,
             @RequestParam("seniorId") long seniorId,
@@ -45,7 +45,7 @@ public class ParticipationResource {
         return ReviewMapper.INSTANCE.reviewToReviewDto(review);
     }
 
-    @RequestMapping(value = "/{id}/review", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/review")
     public List<ReviewDTO> getAllReviewsOfParticipation(
             @PathVariable("id") long id) {
         List<Review> reviews = participationService.getAllReviewsOfParticipation(id);
