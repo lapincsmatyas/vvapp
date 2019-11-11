@@ -1,6 +1,8 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.ParticipationDTO;
 import vv.dto.ReviewDTO;
@@ -31,13 +33,13 @@ public class ReviewResource {
     ParticipationService participationService;
 
     @GetMapping
-    public List<ReviewDTO> getAllReviews(){
+    public ResponseEntity<List<ReviewDTO>> getAllReviews(){
         List<Review> seniors = reviewService.getAllReviews();
-        return seniors.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
+        return new ResponseEntity<>(seniors.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ReviewDTO getReviewById(@PathVariable("id") long id) {
-        return ReviewMapper.INSTANCE.reviewToReviewDto(reviewService.getReviewById(id));
+    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable("id") long id) {
+        return new ResponseEntity<>(ReviewMapper.INSTANCE.reviewToReviewDto(reviewService.getReviewById(id)), HttpStatus.OK);
     }
 }

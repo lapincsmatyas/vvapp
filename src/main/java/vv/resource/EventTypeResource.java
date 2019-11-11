@@ -1,6 +1,8 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.EventDTO;
 import vv.dto.EventTypeDTO;
@@ -26,31 +28,31 @@ public class EventTypeResource {
     EventService eventService;
 
     @GetMapping
-    public List<EventTypeDTO> getAllEventTypes(){
+    public ResponseEntity<List<EventTypeDTO>> getAllEventTypes(){
         List<EventType> eventTypes = eventTypeService.getAllEventTypes();
-        return eventTypes.stream().map(EventTypeMapper.INSTANCE::eventTypeToEventTypeDto).collect(Collectors.toList());
+        return new ResponseEntity<>(eventTypes.stream().map(EventTypeMapper.INSTANCE::eventTypeToEventTypeDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PostMapping
-    public EventTypeDTO addEventType(@RequestBody EventTypeDTO eventTypeDTO){
+    public ResponseEntity<EventTypeDTO> addEventType(@RequestBody EventTypeDTO eventTypeDTO){
         EventType eventType = EventTypeMapper.INSTANCE.eventTypeDtoToEventType(eventTypeDTO);
         eventTypeService.saveEventType(eventType);
-        return EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType);
+        return new ResponseEntity<>(EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/events")
-    public List<EventDTO> getEventsForEventType(@PathVariable long id){
+    public ResponseEntity<List<EventDTO>> getEventsForEventType(@PathVariable long id){
         List<Event> events = eventService.getEventsByEventTypeId(id);
-        return events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList());
+        return new ResponseEntity<>(events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public EventTypeDetailDTO getEventTypeById(@PathVariable long id){
+    public ResponseEntity<EventTypeDetailDTO> getEventTypeById(@PathVariable long id){
         EventTypeDetailDTO eventTypeDetailDTO =
                 EventTypeMapper.INSTANCE.eventTypeToEventTypeDetailDto(eventTypeService.getEventTypeById(id));
         eventTypeDetailDTO.setEvents(
                 eventService.getEventsByEventTypeId(id).stream().map(
                         EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList()));
-        return eventTypeDetailDTO;
+        return new ResponseEntity<>(eventTypeDetailDTO, HttpStatus.OK);
     }
 }

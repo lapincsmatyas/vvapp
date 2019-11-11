@@ -1,6 +1,8 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.*;
 import vv.helper.mapper.EventMapper;
@@ -25,30 +27,30 @@ public class ParticipationResource {
     ParticipationService participationService;
 
     @GetMapping
-    public List<ParticipationDTO> getAllParticipations() {
+    public ResponseEntity<List<ParticipationDTO>> getAllParticipations() {
         List<Participation> events = participationService.getAllParticipations();
-        return events.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList());
+        return new ResponseEntity<>(events.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ParticipationDetailDTO getParticipationById(@PathVariable("id") long id) {
-        return ParticipationMapper.INSTANCE.participationToParticipationDetailDto(participationService.getParticipationById(id));
+    public ResponseEntity<ParticipationDetailDTO> getParticipationById(@PathVariable("id") long id) {
+        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDetailDto(participationService.getParticipationById(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/{id}/review")
-    public ReviewDTO addReviewToParticipation(
+    public ResponseEntity<ReviewDTO> addReviewToParticipation(
             @PathVariable("id") long participationId,
             @RequestParam("seniorId") long seniorId,
             @RequestBody ReviewDTO reviewDTO) {
         Review review = ReviewMapper.INSTANCE.reviewDtoToReview(reviewDTO);
         review = participationService.createReviewToParticipation(participationId, seniorId, review.getText());
-        return ReviewMapper.INSTANCE.reviewToReviewDto(review);
+        return new ResponseEntity<>(ReviewMapper.INSTANCE.reviewToReviewDto(review), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/review")
-    public List<ReviewDTO> getAllReviewsOfParticipation(
+    public ResponseEntity<List<ReviewDTO>> getAllReviewsOfParticipation(
             @PathVariable("id") long id) {
         List<Review> reviews = participationService.getAllReviewsOfParticipation(id);
-        return reviews.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
+        return new ResponseEntity<>(reviews.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 }

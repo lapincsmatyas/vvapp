@@ -1,6 +1,8 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.EventDTO;
 import vv.dto.EventDetailDTO;
@@ -34,29 +36,29 @@ public class EventResource {
     ParticipationService participationService;
 
     @GetMapping
-    public List<EventDTO> getAllEvents() {
+    public ResponseEntity<List<EventDTO>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        return events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList());
+        return new ResponseEntity<>(events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public EventDetailDTO getEventById(@PathVariable("id") long id) {
+    public ResponseEntity<EventDetailDTO> getEventById(@PathVariable("id") long id) {
         Event event = eventService.getEventById(id);
         if (event != null) {
-            return EventMapper.INSTANCE.eventToEventDetailDto(event);
+            return new ResponseEntity<>(EventMapper.INSTANCE.eventToEventDetailDto(event), HttpStatus.OK);
         } else return null;
     }
 
     @PostMapping
-    public EventDTO addEvent(@RequestBody EventDTO eventDTO) {
+    public ResponseEntity<EventDTO> addEvent(@RequestBody EventDTO eventDTO) {
         Event event = EventMapper.INSTANCE.eventDtoToEvent(eventDTO);
         eventService.saveEvent(event);
-        return EventMapper.INSTANCE.eventToEventDto(event);
+        return new ResponseEntity(EventMapper.INSTANCE.eventToEventDto(event), HttpStatus.OK);
     }
 
     @PostMapping(value = "/{eventId}/seniors")
-    public ParticipationDTO addSeniorToEvent(@PathVariable long eventId, @RequestParam long seniorId, @RequestParam long eventRoleId) {
+    public ResponseEntity<ParticipationDTO> addSeniorToEvent(@PathVariable long eventId, @RequestParam long seniorId, @RequestParam long eventRoleId) {
         Participation participation = participationService.createParticipation(eventId, seniorId, eventRoleId);
-        return ParticipationMapper.INSTANCE.participationToParticipationDto(participation);
+        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
     }
 }

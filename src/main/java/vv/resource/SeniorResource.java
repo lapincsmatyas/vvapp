@@ -1,6 +1,9 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.ParticipationDTO;
 import vv.dto.SeniorDTO;
@@ -27,44 +30,44 @@ public class SeniorResource {
     ParticipationService participationService;
 
     @GetMapping
-    public List<SeniorDTO> getAllSeniors(){
+    public ResponseEntity<List<SeniorDTO>> getAllSeniors(){
         List<Senior> seniors = seniorService.getAllSeniors();
-        return seniors.stream().map(SeniorMapper.INSTANCE::seniorToSeniorDto).collect(Collectors.toList());
+        return new ResponseEntity<>(seniors.stream().map(SeniorMapper.INSTANCE::seniorToSeniorDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public SeniorDetailDTO getSeniorById(@PathVariable("id") long id) {
+    public ResponseEntity<SeniorDetailDTO> getSeniorById(@PathVariable("id") long id) {
         Senior senior = seniorService.getSeniorById(id);
         if (senior != null) {
             SeniorDetailDTO seniorDetailDTO = SeniorMapper.INSTANCE.seniorToSeniorDetailDto(senior);
             seniorDetailDTO.setParticipations(
                     senior.getParticipations().stream().map(
                             SeniorMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList()));
-            return seniorDetailDTO;
+            return new ResponseEntity<>(seniorDetailDTO, HttpStatus.OK);
         }
         else return null;
     }
 
     @PostMapping
-    public SeniorDTO addSenior(@RequestBody SeniorDTO seniorDTO){
+    public ResponseEntity<SeniorDTO> addSenior(@RequestBody SeniorDTO seniorDTO){
         Senior senior = SeniorMapper.INSTANCE.seniorDtoToSenior(seniorDTO);
         seniorService.saveSenior(senior);
-        return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
+        return new ResponseEntity<>(SeniorMapper.INSTANCE.seniorToSeniorDto(senior), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/participations")
-    public List<ParticipationDTO> getParticipationsOfSenior(@PathVariable("id") long id){
+    public ResponseEntity<List<ParticipationDTO>> getParticipationsOfSenior(@PathVariable("id") long id){
         Senior senior = seniorService.getSeniorById(id);
         if(senior != null){
             List<Participation> participations = new ArrayList<>(senior.getParticipations());
-            return participations.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList());
+            return new ResponseEntity<>(participations.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList()), HttpStatus.OK);
         }
         return null;
     }
 
     @PostMapping(value = "/{seniorId}/events")
-    public ParticipationDTO addEventToSenior(@PathVariable("seniorId") long seniorId, @RequestParam long eventId, @RequestParam long eventRoleId){
-        return ParticipationMapper.INSTANCE.participationToParticipationDto(
-                participationService.createParticipation(eventId, seniorId, eventRoleId));
+    public ResponseEntity<ParticipationDTO> addEventToSenior(@PathVariable("seniorId") long seniorId, @RequestParam long eventId, @RequestParam long eventRoleId){
+        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(
+                participationService.createParticipation(eventId, seniorId, eventRoleId)), HttpStatus.OK);
     }
 }
