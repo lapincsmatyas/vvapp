@@ -4,7 +4,7 @@ class Events extends React.Component{
     render() {
         return(
             <div>
-                <center><h1>Események</h1></center>
+                <h1>Események</h1>
                 {this.props.events.map((event) => (
                     <div key={event.eventId} className="card">
                         <div className="card-body">
