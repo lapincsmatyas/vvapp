@@ -10,6 +10,7 @@ import vv.service.EventRoleService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/event-role")
 public class EventRoleResource {
