@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './add-senior-form.module.css'
 
 class AddSeniorForm extends React.Component {
 
@@ -16,10 +15,11 @@ class AddSeniorForm extends React.Component {
 
     render() {
         return (
-            <div className={styles["add-senior-form"]}>
+            <div>
+                <h1>Senior hozzáadása</h1>
                 <div className="form-group">
                     <label htmlFor="seniorName">Név:</label>
-                    <input name="name" value={this.state.value} onChange={this.handleChange} type="text" className="form-control" id="seniorName" />
+                    <input name="name" value={this.state.name} onChange={this.handleChange} type="text" className="form-control" id="seniorName" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="seniorEmail">Email:</label>

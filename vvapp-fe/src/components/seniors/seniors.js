@@ -1,8 +1,5 @@
 import React from 'react'
-import AddSeniorForm from './add-senior-form'
-import SeniorDetail from './senior-detail'
 import SeniorService from '../../services/senior.service';
-import styles from './seniors.module.css'
 
 class Seniors extends React.Component{
     constructor(props){
@@ -16,7 +13,6 @@ class Seniors extends React.Component{
         }
 
         this.selectSenior = this.selectSenior.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     selectSenior(seniorId){
@@ -25,18 +21,11 @@ class Seniors extends React.Component{
         });
     }
 
-    handleSubmit(newSenior){
-        console.log(this.seniorService);
-        this.seniorService.addNewSenior(newSenior).then(senior => {
-            this.props.updateSeniors();
-        })
-    }
-
     render(){
         return(
         <>
-            <div className={styles["senior-list"]}>
-                <h2>Seniorok</h2>
+            <div>
+                <h1>Seniorok</h1>
                 {this.props.seniors.map((senior) => (
                     <div key={senior.seniorId} className="card">
                         <div onClick={() => this.selectSenior(senior.seniorId)} className="card-body">
@@ -46,8 +35,6 @@ class Seniors extends React.Component{
                     </div>
                 ))}
             </div>
-            <AddSeniorForm onSubmit={this.handleSubmit} className={styles.seniorForm} />
-            {this.state.showDetails && <SeniorDetail senior={this.state.selectedItem} />}
         </>
         )
     }
