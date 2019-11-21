@@ -17,6 +17,10 @@ public class EventRole {
     @OneToMany(mappedBy = "eventRole")
     private Set<Participation> participations;
 
+    @ManyToOne
+    @JoinColumn(name = "event_type_id")
+    private EventType eventType;
+
     public Set<Participation> getParticipations() {
         return participations;
     }
@@ -39,5 +43,13 @@ public class EventRole {
 
     public void setEventRoleId(Long eventRoleId) {
         this.eventRoleId = eventRoleId;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
     }
 }

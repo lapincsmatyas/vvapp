@@ -20,8 +20,9 @@ public class EventRoleResource {
 
     @GetMapping
     public List<EventRoleDTO> getAllEventRoles(){
-        List<EventRole> eventTypes = eventRoleService.getAllEventRoles();
-        return eventTypes.stream().map(EventRoleMapper.INSTANCE::eventRoleToEventRoleDto).collect(Collectors.toList());
+        List<EventRole> eventRoles = eventRoleService.getAllEventRoles();
+        List<EventRoleDTO> eventRoleDTOS = eventRoles.stream().map(EventRoleMapper.INSTANCE::eventRoleToEventRoleDto).collect(Collectors.toList());
+        return eventRoleDTOS;
     }
 
     @PostMapping
