@@ -16,7 +16,7 @@ public class Event {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "eventTypeId")
+    @JoinColumn(name = "event_type_id")
     private EventType eventType;
 
     @OneToMany(mappedBy = "event")
