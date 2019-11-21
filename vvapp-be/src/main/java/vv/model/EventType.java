@@ -1,6 +1,7 @@
 package vv.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,8 +19,11 @@ public class EventType {
     private String name;
 
     @OneToMany(mappedBy = "eventType")
-    @JsonBackReference
     private Set<Event> events;
+
+    @OneToMany(mappedBy = "eventType")
+    @JsonIgnore
+    private Set<EventRole> eventRoles;
 
     public String getName() {
         return name;
@@ -43,5 +47,13 @@ public class EventType {
 
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+    public Set<EventRole> getEventRoles() {
+        return eventRoles;
+    }
+
+    public void setEventRoles(Set<EventRole> eventRoles) {
+        this.eventRoles = eventRoles;
     }
 }

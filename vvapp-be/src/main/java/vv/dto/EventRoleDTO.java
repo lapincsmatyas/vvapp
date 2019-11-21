@@ -3,6 +3,7 @@ package vv.dto;
 public class EventRoleDTO {
     private long eventRoleId;
     private String name;
+    private EventTypeDTO eventType;
 
     public long getEventRoleId() {
         return eventRoleId;
@@ -18,5 +19,13 @@ public class EventRoleDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public EventTypeDTO getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventTypeDTO eventType) {
+        this.eventType = eventType;
     }
 }
