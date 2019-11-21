@@ -5,6 +5,10 @@ import SeniorService from './services/senior.service'
 import EventService from './services/event.service'
 import AddSeniorForm from './components/seniors/add-senior-form'
 import AddEventForm from './components/events/add-event-form'
+import AddEventTypeForm from './components/event-types/add-event-type-form'
+import EventTypes from "./components/event-types/event-types";
+import EventRoles from "./components/event-roles/event-roles";
+import AddEventRoleForm from "./components/event-roles/add-event-role-form";
 
 class App extends React.Component{
 
@@ -23,14 +27,19 @@ class App extends React.Component{
     this.getSeniors = this.getSeniors.bind(this);
     this.getEvents = this.getEvents.bind(this);
     this.getEventTypes = this.getEventTypes.bind(this);
+    this.getEventRoles = this.getEventRoles.bind(this);
+
     this.onSeniorAdd = this.onSeniorAdd.bind(this);
     this.onEventAdd = this.onEventAdd.bind(this);
+    this.onEventTypeAdd = this.onEventTypeAdd.bind(this);
+    this.onEventRoleAdd = this.onEventRoleAdd.bind(this);
   }
 
   componentDidMount(){
     this.getSeniors();
     this.getEvents();
     this.getEventTypes();
+    this.getEventRoles();
   }
 
   onSeniorAdd(senior){
@@ -45,9 +54,19 @@ class App extends React.Component{
     })
   }
 
-  render() {
-    if(!this.state.seniors) return null;
+  onEventTypeAdd(eventType){
+      this.eventService.createEventType(eventType).then(eventType => {
+          this.getEventTypes();
+      })
+  }
 
+  onEventRoleAdd(eventRole){
+      this.eventServive.createEventRole(eventRole).then(role => {
+          this.getEventRoles();
+      })
+  }
+
+  render() {
     return (
         <>
             <div>
@@ -56,7 +75,15 @@ class App extends React.Component{
             </div>
             <div>
                 <Events events={this.state.events} />
-                <AddEventForm onSubmit={this.onEventAdd} eventTypes={this.state.eventTypes}/>
+                <AddEventForm onSubmit={this.onEventAdd} eventTypes={this.state.eventTypes} />
+            </div>
+            <div>
+                <EventTypes eventTypes={this.state.eventTypes} />
+                <AddEventTypeForm onSubmit={this.onEventTypeAdd} />
+            </div>
+            <div>
+                <EventRoles eventRoles={this.state.eventRoles} />
+                <AddEventRoleForm onSubmit={this.onEventRoleAdd} />
             </div>
         </>
     );
@@ -79,6 +106,12 @@ class App extends React.Component{
         console.log(eventTypes);
       this.setState({eventTypes: eventTypes});
     })
+  }
+
+  getEventRoles(){
+      this.eventService.getAllEventRoles().then(eventRoles => {
+          this.setState({eventRoles: eventRoles});
+      })
   }
 }
 

@@ -4,7 +4,7 @@ class EventRoles extends React.Component{
     render(){
         return(
             <div>
-                <center><h1>Szerepek</h1></center>
+                <h1>Szerepek</h1>
                 {this.props.eventRoles.map((eventRole) => (
                     <div key={eventRole.eventRoleId} className="card">
                     <div className="card-body">
