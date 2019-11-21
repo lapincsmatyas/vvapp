@@ -9,7 +9,7 @@ class AddEventForm extends React.Component{
     }
 
     handleChange(event){
-        if(event.target.name == "eventType")
+        if(event.target.name === "eventType")
             this.setState({[event.target.name]: this.props.eventTypes[event.target.value]});
         else
             this.setState({[event.target.name]: event.target.value});

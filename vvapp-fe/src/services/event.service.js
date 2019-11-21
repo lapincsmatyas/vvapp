@@ -72,6 +72,21 @@ class EventService{
                 console.log(error);
             })
     }
+
+    createEventRole(eventRole) {
+        return fetch('http://localhost:8080/event-role', {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(eventRole)
+        }).then(response => {
+            return response.json()
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 }
 
 export default EventService

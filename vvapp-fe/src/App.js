@@ -61,7 +61,7 @@ class App extends React.Component{
   }
 
   onEventRoleAdd(eventRole){
-      this.eventServive.createEventRole(eventRole).then(role => {
+      this.eventService.createEventRole(eventRole).then(role => {
           this.getEventRoles();
       })
   }
@@ -83,7 +83,7 @@ class App extends React.Component{
             </div>
             <div>
                 <EventRoles eventRoles={this.state.eventRoles} />
-                <AddEventRoleForm onSubmit={this.onEventRoleAdd} />
+                <AddEventRoleForm eventTypes={this.state.eventTypes} onSubmit={this.onEventRoleAdd} />
             </div>
         </>
     );
