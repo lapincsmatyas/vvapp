@@ -2,6 +2,7 @@ import React from 'react'
 
 class SeniorDetail extends React.Component{
    render(){
+       console.log(this.props.senior);
        return(
            <div>
                <h1>{this.props.senior.name}</h1>

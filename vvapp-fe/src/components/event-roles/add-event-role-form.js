@@ -5,6 +5,7 @@ class AddEventRoleForm extends React.Component{
         super(props);
         this.state = {name: '', eventType: ''}
 
+        this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -33,10 +34,15 @@ class AddEventRoleForm extends React.Component{
                             ))}
                         </select>
                     </div>
-                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-primary">Hozzáadás</button>
+                    <button onClick={this.onSubmit} type="submit" className="btn btn-primary">Hozzáadás</button>
                 </div>
             </>
         )
+    }
+
+    onSubmit(){
+        this.props.onSubmit(this.state);
+        this.setState({name: '', eventType: ''})
     }
 }
 

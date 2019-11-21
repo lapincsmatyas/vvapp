@@ -9,6 +9,8 @@ import AddEventTypeForm from './components/event-types/add-event-type-form'
 import EventTypes from "./components/event-types/event-types";
 import EventRoles from "./components/event-roles/event-roles";
 import AddEventRoleForm from "./components/event-roles/add-event-role-form";
+import SeniorDetail from "./components/seniors/senior-detail";
+import EventDetail from "./components/events/event-detail";
 
 class App extends React.Component{
 
@@ -21,7 +23,9 @@ class App extends React.Component{
         events: [],
         seniors: [],
         eventRoles: [],
-        eventTypes: []
+        eventTypes: [],
+        showDetails: false,
+        selectedSenior: null
     }
 
     this.getSeniors = this.getSeniors.bind(this);
@@ -33,6 +37,9 @@ class App extends React.Component{
     this.onEventAdd = this.onEventAdd.bind(this);
     this.onEventTypeAdd = this.onEventTypeAdd.bind(this);
     this.onEventRoleAdd = this.onEventRoleAdd.bind(this);
+    this.onSelectSenior = this.onSelectSenior.bind(this);
+    this.onSelectEvent = this.onSelectEvent.bind(this);
+    this.onParticipationAdd = this.onParticipationAdd.bind(this);
   }
 
   componentDidMount(){
@@ -40,6 +47,18 @@ class App extends React.Component{
     this.getEvents();
     this.getEventTypes();
     this.getEventRoles();
+  }
+
+  onSelectSenior(senior){
+      this.seniorService.getSeniorById(senior.seniorId).then( senior => {
+          this.setState({selectedSenior: senior, showSeniorDetails: true});
+      })
+  }
+
+  onSelectEvent(event){
+      this.eventService.getEventById(event.eventId).then( event => {
+          this.setState({selectedEvent: event, showEventDetails: true});
+      })
   }
 
   onSeniorAdd(senior){
@@ -66,15 +85,23 @@ class App extends React.Component{
       })
   }
 
+  onParticipationAdd(participation){
+    this.eventService.addSeniorToEvent(participation.event, participation.senior, participation.eventRole).then(participation => {
+        console.log(participation);
+    })
+  }
+
   render() {
     return (
         <>
             <div>
-              <Seniors updateSeniors={this.getSeniors} seniors={this.state.seniors} />
+              <Seniors onSelectSenior={this.onSelectSenior} seniors={this.state.seniors} />
+              {this.state.showSeniorDetails && <SeniorDetail senior={this.state.selectedSenior} />}
               <AddSeniorForm onSubmit={this.onSeniorAdd}/>
             </div>
             <div>
-                <Events events={this.state.events} />
+                <Events onSelectEvent={this.onSelectEvent} events={this.state.events} />
+                {this.state.showEventDetails && <EventDetail onParticipationAdd={this.onParticipationAdd} seniors={this.state.seniors} eventRoles={this.state.eventRoles} event={this.state.selectedEvent} />}
                 <AddEventForm onSubmit={this.onEventAdd} eventTypes={this.state.eventTypes} />
             </div>
             <div>

@@ -87,6 +87,21 @@ class EventService{
             console.log(error);
         })
     }
+
+    addSeniorToEvent(event, senior, role){
+        console.log(event, senior, role);
+        return fetch(`http://localhost:8080/event/${event.eventId}/seniors?seniorId=${senior.seniorId}&eventRoleId=${role.eventRoleId}`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.json()
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 }
 
 export default EventService
