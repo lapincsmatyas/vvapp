@@ -1,5 +1,7 @@
 package vv.dto;
 
+import java.util.List;
+
 public class EventTypeDTO {
     private String name;
     private Long eventTypeId;
