@@ -18,7 +18,7 @@ public class EventRoleService {
         return eventRoleRepository.findById(id).orElse(null);
     }
 
-    public void saveEventRole(EventRole eventRole) {
-        eventRoleRepository.save(eventRole);
+    public EventRole saveEventRole(EventRole eventRole) {
+        return eventRoleRepository.save(eventRole);
     }
 }

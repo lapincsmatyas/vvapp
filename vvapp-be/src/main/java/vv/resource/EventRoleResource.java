@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import vv.dto.EventRoleDTO;
 import vv.helper.mapper.EventRoleMapper;
 import vv.model.EventRole;
+import vv.model.EventType;
 import vv.service.EventRoleService;
+import vv.service.EventTypeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +19,9 @@ public class EventRoleResource {
 
     @Autowired
     EventRoleService eventRoleService;
+
+    @Autowired
+    EventTypeService eventTypeService;
 
     @GetMapping
     public List<EventRoleDTO> getAllEventRoles(){

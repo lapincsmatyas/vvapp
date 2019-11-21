@@ -4,12 +4,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@SequenceGenerator(name = "event_role_event_role_id", sequenceName = "event_role_event_role_id")
-@SequenceGenerator(name = "event_role_event_role_id", sequenceName = "event_role_event_role_id", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "event_role_event_role_id_seq", sequenceName = "event_role_event_role_id_seq")
+@SequenceGenerator(name = "event_role_event_role_id_seq", sequenceName = "event_role_event_role_id_seq", initialValue = 1, allocationSize = 1)
+@Table(name = "event_role")
 public class EventRole {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_role_event_role_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_role_event_role_id_seq")
     @Column(name = "event_role_id")
     private Long eventRoleId;
     private String name;
@@ -17,7 +18,7 @@ public class EventRole {
     @OneToMany(mappedBy = "eventRole")
     private Set<Participation> participations;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_type_id")
     private EventType eventType;
 
