@@ -10,7 +10,7 @@ class SeniorDetail extends React.Component{
                <h6>Részvételek</h6>
                <ul>
                {this.props.senior.participations.map(participation => (
-                   <li key={participation.participationId}>{participation.event.name}</li>
+                   <li key={participation.participationId}>{participation.event.name} - {participation.eventRole.name}</li>
                ))}
                </ul>
            </div>
