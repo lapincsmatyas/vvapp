@@ -1,21 +1,43 @@
-import React from 'react'
+import React from "react"
+import EventService from "../../services/event.service";
+import EventList from "./event-list";
 
 class Events extends React.Component{
+    constructor(props) {
+        super(props);
+        this.eventService = new EventService();
+
+        this.state = {
+            events: []
+        };
+
+        this.onSelectEvent = this.onSelectEvent.bind(this);
+        this.getEvents = this.getEvents.bind(this);
+    }
+
+    componentDidMount() {
+        this.getEvents();
+    }
+
+    onSelectEvent(event){
+        this.eventService.getEventById(event.eventId).then( event => {
+            this.setState({selectedEvent: event, showEventDetails: true});
+        })
+    }
+
+    getEvents(){
+        this.eventService.getAllEvents().then(events => {
+            this.setState({events: events});
+            console.log(events);
+        })
+    }
+
     render() {
+        console.log(this.state.events);
         return(
-            <div>
-                <h1>Események</h1>
-                {this.props.events.map((event) => (
-                    <div key={event.eventId} className="card">
-                        <div onClick={() => this.props.onSelectEvent(event)} className="card-body">
-                            <h5 className="card-title">{event.name}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">{event.eventType.name}</h6>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <EventList onSelectEvent={this.onSelectEvent} events={this.state.events} />
         )
     }
 }
 
-export default Events
+export default Events;
