@@ -11,30 +11,30 @@ class Seniors extends React.Component{
             seniors: []
         }
 
-        this.onSelectSenior = this.onSelectSenior.bind(this);
         this.getSeniors = this.getSeniors.bind(this);
+        this.onSeniorAdd = this.onSeniorAdd.bind(this);
+    }
 
+    onSeniorAdd(senior){
+        this.seniorService.addNewSenior(senior).then(senior => {
+            this.getSeniors();
+        })
     }
 
     componentDidMount() {
         this.getSeniors();
     }
 
-    onSelectSenior(senior){
-        this.seniorService.getSeniorById(senior.seniorId).then( senior => {
-            this.setState({selectedSenior: senior, showSeniorDetails: true});
-        })
-    }
-
     getSeniors(){
         this.seniorService.getAllSeniors().then(seniors => {
+            console.log("seniorok", seniors);
             this.setState({seniors: seniors});
         })
     }
 
     render() {
         return(
-            <SeniorList onSelectSenior={this.onSelectSenior} seniors={this.state.seniors} />
+                <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
         )
     }
 }

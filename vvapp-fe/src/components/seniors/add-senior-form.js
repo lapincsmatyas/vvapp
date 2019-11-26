@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
 class AddSeniorForm extends React.Component {
 
@@ -25,7 +26,9 @@ class AddSeniorForm extends React.Component {
                     <label htmlFor="seniorEmail">Email:</label>
                     <input name="email" type="email" onChange={this.handleChange} className="form-control" id="seniorEmail" />
                 </div>
-                <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-primary">Hozzáadás</button>
+                <Link to="/seniors">
+                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-success">Hozzáadás</button>
+                </Link>
             </div>
         )
     }

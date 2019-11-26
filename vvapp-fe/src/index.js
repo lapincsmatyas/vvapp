@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route, NavLink} from "react-router-dom";
 import Seniors from "./components/seniors/seniors";
 import Events from "./components/events/events";
 import SeniorDetail from "./components/seniors/senior-detail";
@@ -12,10 +12,10 @@ const routing = (
     <Router>
     <ul className="nav nav-tabs">
         <li className="nav-item">
-            <Link className="nav-link" to="/seniors">Seniorok</Link>
+            <NavLink activeClassName="active" className="nav-link" to="/seniors">Seniorok</NavLink>
         </li>
         <li className="nav-item">
-            <Link className="nav-link" to="/events">Események</Link>
+            <NavLink activeClassName="active"  className="nav-link" to="/events">Események</NavLink>
         </li>
     </ul>
 
@@ -26,11 +26,7 @@ const routing = (
             <Route exact path="/seniors/:id" component={SeniorDetail} />
         </div>
     </Router>
-
-
-
-
-)
+);
 
 ReactDOM.render(routing, document.getElementById('root'));
 

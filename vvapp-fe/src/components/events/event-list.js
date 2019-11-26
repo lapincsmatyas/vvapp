@@ -5,14 +5,13 @@ class EventList extends React.Component{
         return(
             <div>
                 <h1>Események</h1>
-                {this.props.events.map((event) => (
-                    <div key={event.eventId} className="card">
-                        <div onClick={() => this.props.onSelectEvent(event)} className="card-body">
-                            <h5 className="card-title">{event.name}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">{event.eventType.name}</h6>
-                        </div>
-                    </div>
-                ))}
+                <ul className="list-group">
+                    {this.props.events.map((event) => (
+                        <li key={event.eventId} className="list-group-item">
+                            {event.name}
+                        </li>
+                    ))}
+                </ul>
             </div>
         )
     }

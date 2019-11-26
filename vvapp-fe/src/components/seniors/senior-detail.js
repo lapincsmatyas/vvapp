@@ -1,5 +1,6 @@
 import React from 'react'
 import SeniorService from "../../services/senior.service";
+import Link from "react-router-dom/modules/Link";
 
 class SeniorDetail extends React.Component{
 
@@ -30,14 +31,16 @@ class SeniorDetail extends React.Component{
        if(!this.state.senior) return null;
 
        return(
-
                    <div>
                        <h1>{this.state.senior.name}</h1>
                        <p>{this.state.senior.email}</p>
                        <h6>Részvételek</h6>
                        <ul>
                            {this.state.senior.participations.map(participation => (
-                               <li key={participation.participationId}>{participation.event.name}</li>
+                               <li key={participation.participationId}>
+
+                                    {participation.event.name}
+                               </li>
                            ))}
                        </ul>
                    </div>

@@ -15,6 +15,7 @@ class EventDetail extends React.Component{
 
    render(){
        return(
+           /*
            <>
             <div>
                <h1>{this.props.event.name}</h1>
@@ -28,6 +29,9 @@ class EventDetail extends React.Component{
             </div>
                <AddSeniorToEventForm onSubmit={this.onParticipationAdd} event={this.props.event} seniors={this.props.seniors} eventRoles={this.props.eventRoles} />
            </>
+
+            */
+           <div></div>
        );
    }
 }

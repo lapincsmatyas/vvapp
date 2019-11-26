@@ -8,7 +8,6 @@ class App extends React.Component{
 
   constructor(props){
     super(props);
-    this.seniorService = new SeniorService();
     this.eventService = new EventService();
 
     this.state = {
@@ -23,7 +22,6 @@ class App extends React.Component{
     this.getEventTypes = this.getEventTypes.bind(this);
     this.getEventRoles = this.getEventRoles.bind(this);
 
-    this.onSeniorAdd = this.onSeniorAdd.bind(this);
     this.onEventAdd = this.onEventAdd.bind(this);
     this.onEventTypeAdd = this.onEventTypeAdd.bind(this);
     this.onEventRoleAdd = this.onEventRoleAdd.bind(this);
@@ -36,11 +34,6 @@ class App extends React.Component{
     this.getEventRoles();
   }
 
-  onSeniorAdd(senior){
-    this.seniorService.addNewSenior(senior).then(senior => {
-      this.getSeniors();
-    })
-  }
 
   onEventAdd(event){
     this.eventService.createEvent(event).then(event => {
