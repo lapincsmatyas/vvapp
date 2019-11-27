@@ -11,11 +11,14 @@ class Events extends React.Component{
             events: []
         };
 
+        this.getEventTypes = this.getEventTypes.bind(this);
         this.getEvents = this.getEvents.bind(this);
+        this.onEventAdd = this.onEventAdd.bind(this);
     }
 
     componentDidMount() {
         this.getEvents();
+        this.getEventTypes();
     }
 
     getEvents(){
@@ -25,10 +28,22 @@ class Events extends React.Component{
         })
     }
 
+    getEventTypes(){
+        this.eventService.getAllEventTypes().then(eventTypes => {
+            this.setState({eventTypes: eventTypes});
+            console.log(eventTypes);
+        })
+    }
+
+    onEventAdd(event){
+        this.eventService.createEvent(event).then(event => {
+            this.getEvents();
+        })
+    }
+
     render() {
-        console.log(this.state.events);
         return(
-            <EventList events={this.state.events} />
+            <EventList onSubmit={this.onEventAdd} eventTypes={this.state.eventTypes} events={this.state.events} />
         )
     }
 }

@@ -32,7 +32,7 @@ class SeniorList extends React.Component{
             </div>
             <div>
                 <Link to={`/seniors/add`}>
-                    <button className="btn btn-success mt-2">Hozzáadás</button>
+                    <button className="btn btn-success btn-sm mt-2">Hozzáadás</button>
                 </Link>
             </div>
 

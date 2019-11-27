@@ -8,7 +8,7 @@ class Review extends React.Component{
     render() {
         return(
             <>
-                <p>{this.props.review.text}</p>
+                {this.props.review.senior.name}: {this.props.review.text}
             </>
         )
     }

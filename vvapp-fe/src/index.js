@@ -8,6 +8,7 @@ import Seniors from "./components/seniors/seniors";
 import Events from "./components/events/events";
 import SeniorDetail from "./components/seniors/senior-detail";
 import EventDetail from "./components/events/event-detail";
+import AddSeniorToEventForm from "./components/events/add-senior-to-event-form";
 
 const routing = (
     <Router>
@@ -26,7 +27,7 @@ const routing = (
             <Route path="/events" component={Events} />
             <Route exact path="/seniors/senior/:id" component={SeniorDetail} />
             <Route exact path="/events/event/:id" component={EventDetail} />
-
+            <Route exact path="/events/event/:id/seniors/add" component={AddSeniorToEventForm} />
         </div>
     </Router>
 );

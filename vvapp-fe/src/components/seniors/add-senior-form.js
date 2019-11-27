@@ -27,7 +27,7 @@ class AddSeniorForm extends React.Component {
                     <input name="email" type="email" onChange={this.handleChange} className="form-control" id="seniorEmail" />
                 </div>
                 <Link to="/seniors">
-                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-success">Hozzáadás</button>
+                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-success btn-sm">Hozzáadás</button>
                 </Link>
             </div>
         )

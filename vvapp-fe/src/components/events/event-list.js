@@ -5,7 +5,7 @@ import AddEventForm from "./add-event-form";
 class EventList extends React.Component{
     render() {
         return(
-            <>
+            <div className="m-3">
                 <div>
                     <h1>Események</h1>
                     <ul className="list-group">
@@ -20,14 +20,15 @@ class EventList extends React.Component{
                 </div>
                 <div>
                     <Link to={`/events/add`}>
-                        <button className="btn btn-success">Hozzáadás</button>
+                        <button className="btn btn-success btn-sm m-2">Hozzáadás</button>
                     </Link>
                 </div>
 
                 <Route exact path="/events/add"
                        render={(props) => <AddEventForm {...props} onSubmit={this.props.onSubmit} />}
                 />
-            </>
+
+            </div>
         )
     }
 }
