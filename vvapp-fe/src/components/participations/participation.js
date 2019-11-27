@@ -16,6 +16,7 @@ class Participation extends React.Component{
 
         this.loadReviews = this.loadReviews.bind(this);
         this.onReviewAdd = this.onReviewAdd.bind(this);
+        this.onReviewCancel = this.onReviewCancel.bind(this);
 
         this.participationService = new ParticipationService();
     }
@@ -33,6 +34,9 @@ class Participation extends React.Component{
 
     }
 
+    onReviewCancel(){
+        this.setState({showAddReview: false});
+    }
 
     render() {
         return (
@@ -72,7 +76,7 @@ class Participation extends React.Component{
 
                         {
                             (this.state.participation && this.state.participation.reviews) && this.state.showAddReview && (
-                                <AddReviewForm onSubmit={this.onReviewAdd} className="ml-5" />
+                                <AddReviewForm onCancel={this.onReviewCancel} onSubmit={this.onReviewAdd} className="ml-5" />
                             )
                         }
 
@@ -80,7 +84,7 @@ class Participation extends React.Component{
                         (!this.state.participation || !this.state.participation.reviews) &&
                             <button className="btn btn-primary btn-sm m-1" onClick={this.loadReviews}>Értékelések betöltése</button>
                         }
-                        {!(!this.state.participation || !this.state.participation.reviews) &&
+                        {!(!this.state.participation || !this.state.participation.reviews) && !this.state.showAddReview &&
                         <button className="btn btn-danger btn-sm m-1" onClick={this.loadReviews}>Értékelések bezárása</button>
                         }
                     </div>

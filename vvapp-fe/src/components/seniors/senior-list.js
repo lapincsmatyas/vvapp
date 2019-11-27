@@ -14,22 +14,23 @@ class SeniorList extends React.Component{
 
     }
 
-
     render(){
         return(
+
         <div className="m-3">
-            <div>
-                <h1>Seniorok</h1>
-                <ul className="list-group">
-                {this.props.seniors.map((senior) => (
-                    <Link key={senior.seniorId} to={`/seniors/senior/${senior.seniorId}`}>
-                        <li className="list-group-item">
-                            <span>{senior.name}</span>
-                        </li>
-                    </Link>
-                    ))}
-                </ul>
-            </div>
+                <div>
+                    <h1>Seniorok</h1>
+
+                        <ul className="list-group">
+                            {this.props.seniors.map((senior) => (
+                                <Link key={senior.seniorId} to={`/seniors/senior/${senior.seniorId}`}>
+                                    <li className="list-group-item">
+                                        <span>{senior.name}</span>
+                                    </li>
+                                </Link>
+                            ))}
+                        </ul>
+                </div>
             <div>
                 <Link to={`/seniors/add`}>
                     <button className="btn btn-success btn-sm mt-2">Hozzáadás</button>

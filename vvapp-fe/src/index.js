@@ -12,22 +12,13 @@ import AddSeniorToEventForm from "./components/events/add-senior-to-event-form";
 
 const routing = (
     <Router>
-    <ul className="nav nav-tabs">
-        <li className="nav-item">
-            <NavLink activeClassName="active" className="nav-link" to="/seniors">Seniorok</NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink activeClassName="active"  className="nav-link" to="/events">Események</NavLink>
-        </li>
-    </ul>
-
         <div>
-            <Route exact path="/" component={App} />
+            <Route path="/" component={App} />
             <Route path="/seniors" component={Seniors} />
             <Route path="/events" component={Events} />
-            <Route exact path="/seniors/senior/:id" component={SeniorDetail} />
-            <Route exact path="/events/event/:id" component={EventDetail} />
-            <Route exact path="/events/event/:id/seniors/add" component={AddSeniorToEventForm} />
+            <Route path="/seniors/senior/:id" component={SeniorDetail} />
+            <Route path="/events/event/:id" component={EventDetail} />
+            <Route path="/events/event/:id/seniors/add" component={AddSeniorToEventForm} />
         </div>
     </Router>
 );
