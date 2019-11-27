@@ -11,18 +11,11 @@ class Events extends React.Component{
             events: []
         };
 
-        this.onSelectEvent = this.onSelectEvent.bind(this);
         this.getEvents = this.getEvents.bind(this);
     }
 
     componentDidMount() {
         this.getEvents();
-    }
-
-    onSelectEvent(event){
-        this.eventService.getEventById(event.eventId).then( event => {
-            this.setState({selectedEvent: event, showEventDetails: true});
-        })
     }
 
     getEvents(){
@@ -35,7 +28,7 @@ class Events extends React.Component{
     render() {
         console.log(this.state.events);
         return(
-            <EventList onSelectEvent={this.onSelectEvent} events={this.state.events} />
+            <EventList events={this.state.events} />
         )
     }
 }

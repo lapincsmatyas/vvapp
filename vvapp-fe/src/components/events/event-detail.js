@@ -1,37 +1,47 @@
 import React from 'react'
-import AddSeniorToEventForm from "./add-senior-to-event-form";
+import EventService from "../../services/event.service";
 
 class EventDetail extends React.Component{
     constructor(props){
         super(props);
 
-        this.onParticipationAdd = this.onParticipationAdd.bind(this);
+        this.state = {
+            event: null
+        }
+
+        this.eventService = new EventService();
     }
 
-    onParticipationAdd(participation){
-        participation.event = this.props.event;
-        this.props.onParticipationAdd(participation);
+    componentDidMount() {
+        this.eventService.getEventById(this.props.match.params.id).then(event => {
+            this.setState({event: event});
+        })
     }
 
-   render(){
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.match.params.id !== this.props.match.params.id){
+            this.eventService.getEventById(this.props.match.params.id).then(event => {
+                this.setState({event: event});
+            })
+        }
+    }
+
+    render(){
+       if(!this.state.event) return null;
+
        return(
-           /*
            <>
             <div>
-               <h1>{this.props.event.name}</h1>
-               <p>{this.props.event.eventType.email}</p>
+               <h1>{this.state.event.name}</h1>
+               <p>{this.state.event.eventType.email}</p>
                <h6>Részvételek</h6>
                <ul>
-               {this.props.event.participations.map(participation => (
+               {this.state.event.participations.map(participation => (
                    <li key={participation.participationId}>{participation.senior.name} - {participation.eventRole.name}</li>
                ))}
                </ul>
             </div>
-               <AddSeniorToEventForm onSubmit={this.onParticipationAdd} event={this.props.event} seniors={this.props.seniors} eventRoles={this.props.eventRoles} />
            </>
-
-            */
-           <div></div>
        );
    }
 }

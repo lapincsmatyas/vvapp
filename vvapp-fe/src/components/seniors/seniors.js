@@ -27,14 +27,13 @@ class Seniors extends React.Component{
 
     getSeniors(){
         this.seniorService.getAllSeniors().then(seniors => {
-            console.log("seniorok", seniors);
             this.setState({seniors: seniors});
         })
     }
 
     render() {
         return(
-                <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
+            <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
         )
     }
 }

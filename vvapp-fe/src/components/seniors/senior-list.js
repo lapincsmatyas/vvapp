@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import AddSeniorForm from "./add-senior-form";
+import EventService from "../../services/event.service";
 
 class SeniorList extends React.Component{
     constructor(props){
@@ -13,15 +14,16 @@ class SeniorList extends React.Component{
 
     }
 
+
     render(){
         return(
-        <>
+        <div className="m-3">
             <div>
                 <h1>Seniorok</h1>
                 <ul className="list-group">
                 {this.props.seniors.map((senior) => (
-                    <Link to={`/seniors/senior/${senior.seniorId}`}>
-                        <li key={senior.seniorId} className="list-group-item">
+                    <Link key={senior.seniorId} to={`/seniors/senior/${senior.seniorId}`}>
+                        <li className="list-group-item">
                             <span>{senior.name}</span>
                         </li>
                     </Link>
@@ -30,15 +32,14 @@ class SeniorList extends React.Component{
             </div>
             <div>
                 <Link to={`/seniors/add`}>
-                    <button className="btn btn-success">Hozzáadás</button>
+                    <button className="btn btn-success mt-2">Hozzáadás</button>
                 </Link>
             </div>
 
             <Route exact path="/seniors/add"
                    render={(props) => <AddSeniorForm {...props} onSubmit={this.props.onSubmit} />}
             />
-
-        </>
+        </div>
         )
     }
 }
