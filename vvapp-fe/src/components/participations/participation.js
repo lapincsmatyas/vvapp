@@ -52,13 +52,17 @@ class Participation extends React.Component{
     render() {
         return (
             <>
-                <span className="pl-1">
+                <span className="pl-1 mr-1">
                     <Link to={`/events/event/${this.props.participation.event.eventId}`}>
                         {this.props.participation.event.name}
                     </Link>
                 </span>
+                -
                  <span className="ml-1">
-                     - {this.props.participation.senior.name}: {this.props.participation.eventRole.name}
+                      <Link to={`/seniors/senior/${this.props.participation.senior.seniorId}`}>
+                       {this.props.participation.senior.name}
+                    </Link>
+                     : {this.props.participation.eventRole.name}
                  </span>
                 <span>
                     { this.state.participation && this.state.participation.reviews &&

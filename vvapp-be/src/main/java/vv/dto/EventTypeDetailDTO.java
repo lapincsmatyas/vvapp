@@ -6,6 +6,7 @@ public class EventTypeDetailDTO {
     private String name;
     private Long eventTypeId;
     private List<EventDTO> events;
+    private List<EventRoleDTO> eventRoles;
 
     public String getName() {
         return name;
@@ -29,5 +30,13 @@ public class EventTypeDetailDTO {
 
     public void setEvents(List<EventDTO> events) {
         this.events = events;
+    }
+
+    public List<EventRoleDTO> getEventRoles() {
+        return eventRoles;
+    }
+
+    public void setEventRoles(List<EventRoleDTO> eventRoles) {
+        this.eventRoles = eventRoles;
     }
 }

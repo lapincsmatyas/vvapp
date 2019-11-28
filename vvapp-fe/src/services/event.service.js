@@ -32,6 +32,17 @@ class EventService{
             })
     }
 
+    async getEventTypeById(id){
+        return fetch(`http://localhost:8080/event-type/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     async createEvent(event){
         return fetch('http://localhost:8080/event', {
             method: "POST",

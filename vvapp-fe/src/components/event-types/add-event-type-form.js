@@ -14,16 +14,21 @@ class AddEventTypeForm extends React.Component{
 
     render() {
         return (
-            <>
-                <div>
-                    <h1>Esemény típus hozzáadása</h1>
-                    <div className="form-group">
-                        <label htmlFor="eventTypeName">Név:</label>
-                        <input name="name" value={this.state.name} onChange={this.handleChange} type="text" className="form-control" id="eventTypeName" />
-                    </div>
-                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-primary">Hozzáadás</button>
+            <div className="card p-3">
+                <div className="card-title">
+                    <h6>Esemény típus hozzáadása</h6>
                 </div>
-            </>
+                <div className="card-text">
+                        <div className="form-group">
+                            <label htmlFor="eventTypeName">Név:</label>
+                            <input className="ml-2" name="name" value={this.state.name} onChange={this.handleChange}
+                                   type="text" id="eventTypeName"/>
+                        </div>
+                        <button onClick={() => {this.props.onSubmit(this.state); this.setState({name: ""})}} type="submit"
+                                className="btn btn-success btn-sm">Hozzáadás
+                        </button>
+                    </div>
+            </div>
         )
     }
 }

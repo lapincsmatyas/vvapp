@@ -8,6 +8,7 @@ import SeniorDetail from "./components/seniors/senior-detail";
 import EventDetail from "./components/events/event-detail";
 import AddSeniorToEventForm from "./components/events/add-senior-to-event-form";
 import Header from "./components/header/header";
+import EventTypes from "./components/event-types/event-types";
 
 class App extends React.Component{
 
@@ -29,18 +30,21 @@ class App extends React.Component{
     render() {
       if(!this.state.current) return null;
       return (
+
                <CurrentUserContext.Provider value={this.state.current}>
                    <Header />
+                   <div style={{width: "50%", margin: "0 auto"} }>
+                       <Switch>
+                           <Route exact path="/"/>
+                           <Route path="/seniors" component={Seniors} />
+                           <Route path="/events" component={Events} />
+                           <Route path="/event-types" component={EventTypes} />
 
-                   <Switch>
-                       <Route exact path="/"/>
-                       <Route path="/seniors" component={Seniors} />
-                       <Route path="/events" component={Events} />
-
-
-                       <Route path="/events/event/:id/seniors/add" component={AddSeniorToEventForm}/>
-                   </Switch>
+                           <Route path="/events/event/:id/seniors/add" component={AddSeniorToEventForm}/>
+                       </Switch>
+                   </div>
                </CurrentUserContext.Provider>
+
       );
   }
 }
