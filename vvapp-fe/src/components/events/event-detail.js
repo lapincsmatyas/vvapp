@@ -1,9 +1,11 @@
 import React from 'react'
 import EventService from "../../services/event.service";
-import AddSeniorToEventForm from "./add-senior-to-event-form";
 import Participation from "../participations/participation";
+import CurrentUserContext from "../../CurrentUserContext";
 
 class EventDetail extends React.Component{
+    static contextType = CurrentUserContext;
+
     constructor(props){
         super(props);
 
@@ -27,6 +29,10 @@ class EventDetail extends React.Component{
                 this.setState({event: event});
             })
         }
+    }
+
+    signUpToEvent(){
+        //this.eventService.addSeniorToEvent(this.props.event, this.context, )
     }
 
     render(){
@@ -53,6 +59,21 @@ class EventDetail extends React.Component{
                         }
                         <div>
                             <button onClick={() => this.setState({showAddSeniorToEvent: true})} className="btn btn-success btn-sm mt-2">Résztvevő hozzáadása</button>
+                        </div>
+                        <div>
+                            {/*<span>
+                                <label htmlFor="eventRole">Szerep:</label>
+                                <select name="eventRole" onChange={this.handleChange}>
+                                    <option value={null}/>
+                                    {
+                                        this.state.eventRoles.filter(eventRole => eventRole.eventType.eventTypeId === this.props.event.eventType.eventTypeId)
+                                            .map((eventRole, index) => (
+                                                <option key={eventRole.eventRoleId} value={index}>{eventRole.name}</option>
+                                            ))
+                                    }
+                                </select>
+                            </span>*/}
+                            <button onClick={this.signUpToEvent} className="btn btn-success btn-sm mt-2">Jelentkezés</button>
                         </div>
                     </div>
                 </div>

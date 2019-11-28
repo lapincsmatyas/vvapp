@@ -12,6 +12,7 @@ import vv.model.Review;
 import vv.repository.EventRoleRepository;
 import vv.service.EventService;
 import vv.service.ParticipationService;
+import vv.service.ReviewService;
 import vv.service.SeniorService;
 
 import java.util.List;
@@ -40,9 +41,8 @@ public class ParticipationResource {
     public ReviewDTO addReviewToParticipation(
             @PathVariable("id") long participationId,
             @RequestParam("seniorId") long seniorId,
-            @RequestBody ReviewDTO reviewDTO) {
-        Review review = ReviewMapper.INSTANCE.reviewDtoToReview(reviewDTO);
-        review = participationService.createReviewToParticipation(participationId, seniorId, review.getText());
+            @RequestBody String text) {
+        Review review = participationService.createReviewToParticipation(participationId, seniorId, text);
         return ReviewMapper.INSTANCE.reviewToReviewDto(review);
     }
 
@@ -52,4 +52,6 @@ public class ParticipationResource {
         List<Review> reviews = participationService.getAllReviewsOfParticipation(id);
         return reviews.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
     }
+
+
 }

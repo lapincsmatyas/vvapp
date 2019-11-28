@@ -11,12 +11,14 @@ class ParticipationService {
     }
 
     async addReviewToParticipation(participation, senior, text){
-        return fetch(`http://localhost:8080/participation/${participation.participationId}/review`, {
+        console.log(senior);
+        return fetch(`http://localhost:8080/participation/${participation.participationId}/review?seniorId=${senior.seniorId}`, {
             method: "POST",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: text
         }).then(response => {
             return response.json()
         }).catch(error => {

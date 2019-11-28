@@ -7,6 +7,7 @@ import vv.repository.ParticipationRepository;
 import vv.repository.ReviewRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -62,6 +63,7 @@ public class ParticipationService {
         review.setSenior(senior);
         review.setParticipation(participation);
         review.setText(text);
+        review.setDate(new Date());
         reviewRepository.save(review);
         return review;
     }

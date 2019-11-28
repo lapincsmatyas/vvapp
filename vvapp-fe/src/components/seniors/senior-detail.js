@@ -1,6 +1,5 @@
 import React from 'react'
 import SeniorService from "../../services/senior.service";
-import {Link} from "react-router-dom";
 import Participation from "../participations/participation";
 
 class SeniorDetail extends React.Component{

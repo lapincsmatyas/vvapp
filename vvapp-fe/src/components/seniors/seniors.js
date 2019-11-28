@@ -1,6 +1,8 @@
 import React from "react"
 import SeniorList from "./senior-list";
 import SeniorService from "../../services/senior.service";
+import SeniorDetail from "./senior-detail";
+import {Route, Switch} from "react-router-dom";
 
 class Seniors extends React.Component{
     constructor(props) {
@@ -32,8 +34,16 @@ class Seniors extends React.Component{
     }
 
     render() {
+        console.log(this.context);
         return(
-            <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
+            <>
+                <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
+
+                <Switch>
+                    <Route path="/seniors/senior/:id" component={SeniorDetail} />
+                </Switch>
+            </>
+
         )
     }
 }

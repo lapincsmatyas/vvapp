@@ -26,4 +26,8 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
+    public void deleteReview(Review review) {
+        reviewRepository.delete(review);
+    }
+
 }

@@ -1,6 +1,8 @@
 import React from "react"
 import EventService from "../../services/event.service";
 import EventList from "./event-list";
+import {Route, Switch} from "react-router-dom";
+import EventDetail from "./event-detail";
 
 class Events extends React.Component{
     constructor(props) {
@@ -43,7 +45,12 @@ class Events extends React.Component{
 
     render() {
         return(
-            <EventList onSubmit={this.onEventAdd} eventTypes={this.state.eventTypes} events={this.state.events} />
+            <>
+                <EventList onSubmit={this.onEventAdd} events={this.state.events} />
+                <Switch>
+                    <Route path="/events/event/:id" render={(props) => <EventDetail {...props} eventTypes={this.state.eventTypes} /> } />
+                </Switch>
+            </>
         )
     }
 }

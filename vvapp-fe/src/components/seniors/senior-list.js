@@ -1,7 +1,6 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 import AddSeniorForm from "./add-senior-form";
-import EventService from "../../services/event.service";
 
 class SeniorList extends React.Component{
     constructor(props){

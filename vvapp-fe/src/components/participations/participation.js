@@ -3,8 +3,11 @@ import {Link} from "react-router-dom";
 import Review from "../review/review";
 import ParticipationService from "../../services/participation.service";
 import AddReviewForm from "../review/add-review-form";
+import CurrentUserContext from "../../CurrentUserContext";
+import ReviewService from "../../services/review.service";
 
 class Participation extends React.Component{
+    static contextType = CurrentUserContext;
 
     constructor(props) {
         super(props);
@@ -17,21 +20,29 @@ class Participation extends React.Component{
         this.loadReviews = this.loadReviews.bind(this);
         this.onReviewAdd = this.onReviewAdd.bind(this);
         this.onReviewCancel = this.onReviewCancel.bind(this);
+        this.onReviewDelete = this.onReviewDelete.bind(this);
 
         this.participationService = new ParticipationService();
+        this.reviewService = new ReviewService();
     }
 
-    loadReviews(){
-        if(!this.state.participation)
-            this.participationService.getParticipationById(this.props.participation.participationId).then(participation => {
-                this.setState({participation: participation});
-            })
-        else
-            this.setState({participation: null});
+    loadReviews() {
+        this.participationService.getParticipationById(this.props.participation.participationId).then(participation => {
+            this.setState({participation: participation});
+        });
     }
 
-    onReviewAdd(){
+    onReviewAdd(text){
+        console.log(this.context);
+        this.participationService.addReviewToParticipation(this.state.participation, this.context, text).then(result =>{
+            this.loadReviews();
+        })
+    }
 
+    onReviewDelete(review){
+        this.reviewService.deleteReview(review).then(result => {
+           this.loadReviews();
+        })
     }
 
     onReviewCancel(){
@@ -55,7 +66,7 @@ class Participation extends React.Component{
                             <ul>
                                 {this.state.participation.reviews.map(review => (
                                     <li key={review.reviewId}>
-                                        <Review review={review}/>
+                                        <Review onReviewDelete={this.onReviewDelete} review={review}/>
                                     </li>
                                 ))}
                             </ul>
@@ -73,19 +84,12 @@ class Participation extends React.Component{
                         {(this.state.participation && this.state.participation.reviews) && !this.state.showAddReview &&
                             <button className="btn btn-success btn-sm ml-4 m-1" onClick={() => this.setState({showAddReview: true})}>Értékelés</button>
                         }
-
-                        {
-                            (this.state.participation && this.state.participation.reviews) && this.state.showAddReview && (
-                                <AddReviewForm onCancel={this.onReviewCancel} onSubmit={this.onReviewAdd} className="ml-5" />
-                            )
+                        {(this.state.participation && this.state.participation.reviews) && this.state.showAddReview &&
+                            <AddReviewForm onCancel={this.onReviewCancel} onSubmit={this.onReviewAdd} className="ml-5"/>
                         }
-
                         {
                         (!this.state.participation || !this.state.participation.reviews) &&
                             <button className="btn btn-primary btn-sm m-1" onClick={this.loadReviews}>Értékelések betöltése</button>
-                        }
-                        {!(!this.state.participation || !this.state.participation.reviews) && !this.state.showAddReview &&
-                        <button className="btn btn-danger btn-sm m-1" onClick={this.loadReviews}>Értékelések bezárása</button>
                         }
                     </div>
                 }
