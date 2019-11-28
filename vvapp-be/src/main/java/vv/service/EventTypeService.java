@@ -2,6 +2,7 @@ package vv.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vv.model.EventRole;
 import vv.model.EventType;
 import vv.repository.EventTypeRepository;
 
@@ -21,6 +22,12 @@ public class EventTypeService {
     }
 
     public EventType getEventTypeById(long id) {
-        return eventTypeRepository.findById(id).orElse(null);
+        EventType eventType = eventTypeRepository.findById(id).orElse(null);
+        return eventType;
+    }
+
+    public EventType addEventRoleToEventType(EventType eventType, EventRole eventRole){
+        eventType.getEventRoles().add(eventRole);
+        return eventTypeRepository.save(eventType);
     }
 }

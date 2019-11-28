@@ -18,6 +18,7 @@ class EventList extends React.Component{
                         ))}
                     </ul>
                 </div>
+
                 <div>
                     <Link to={`/events/add`}>
                         <button className="btn btn-success btn-sm m-2">Hozzáadás</button>

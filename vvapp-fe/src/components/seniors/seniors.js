@@ -36,13 +36,13 @@ class Seniors extends React.Component{
     render() {
         console.log(this.context);
         return(
-            <>
+            <div>
                 <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
 
                 <Switch>
                     <Route path="/seniors/senior/:id" component={SeniorDetail} />
                 </Switch>
-            </>
+            </div>
 
         )
     }

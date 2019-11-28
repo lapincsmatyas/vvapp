@@ -8,7 +8,9 @@ import vv.dto.EventTypeDetailDTO;
 import vv.helper.mapper.EventMapper;
 import vv.helper.mapper.EventTypeMapper;
 import vv.model.Event;
+import vv.model.EventRole;
 import vv.model.EventType;
+import vv.service.EventRoleService;
 import vv.service.EventService;
 import vv.service.EventTypeService;
 
@@ -22,6 +24,9 @@ public class EventTypeResource {
 
     @Autowired
     EventTypeService eventTypeService;
+
+    @Autowired
+    EventRoleService eventRoleService;
 
     @Autowired
     EventService eventService;

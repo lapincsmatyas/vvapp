@@ -6,14 +6,16 @@ class Header extends React.Component{
     static contextType = CurrentUserContext;
 
     render() {
-        console.log(this.context);
         return(
             <ul className="nav nav-tabs">
                 <li className="nav-item">
                     <NavLink activeClassName="active" className="nav-link" to="/seniors">Seniorok</NavLink>
                 </li>
-                <li className="nav-item mr-auto">
+                <li className="nav-item">
                     <NavLink activeClassName="active"  className="nav-link" to="/events">Események</NavLink>
+                </li>
+                <li className="nav-item mr-auto">
+                    <NavLink activeClassName="active"  className="nav-link" to="/event-types">Típusok és szerepek</NavLink>
                 </li>
                 <li className="nav-item ml-auto mr-3">
                     <span className="navbar-text">{this.context.name}</span>

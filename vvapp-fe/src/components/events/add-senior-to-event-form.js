@@ -20,14 +20,10 @@ class AddSeniorToEventForm extends React.Component{
 
             <>
                 <div>
-                    <h1>Részvétel hozzáadása</h1>
-                    <div className="form-group">
-                        <label htmlFor="eventName">Esemény neve:</label>
-                        <input name="eventName" value={this.props.event.name} disabled type="text" className="form-control" id="eventName" />
-                    </div>
-                    <div className="form-group">
+                    <div className="card p-3" style={{width: "18rem"}}>
+                        <div className="card-text">
                         <label htmlFor="senior">Senior neve:</label>
-                        <select name="senior" onChange={this.handleChange}>
+                        <select className="ml-2" name="senior" onChange={this.handleChange}>
                             <option value={null}/>
                             {this.props.seniors.map((senior, index) => (
                                 <option key={senior.seniorId} value={index}>{senior.name}</option>
@@ -36,7 +32,7 @@ class AddSeniorToEventForm extends React.Component{
                     </div>
                         <div className="form-group">
                             <label htmlFor="eventRole">Szerep:</label>
-                            <select name="eventRole" onChange={this.handleChange}>
+                            <select className="ml-2" name="eventRole" onChange={this.handleChange}>
                                 <option value={null}/>
                                 {
                                     this.props.eventRoles.filter(eventRole => eventRole.eventType.eventTypeId === this.props.event.eventType.eventTypeId)
@@ -47,6 +43,7 @@ class AddSeniorToEventForm extends React.Component{
                             </select>
                         </div>
                     <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-primary btn-sm">Hozzáadás</button>
+                    </div>
                 </div>
             </>
         )
