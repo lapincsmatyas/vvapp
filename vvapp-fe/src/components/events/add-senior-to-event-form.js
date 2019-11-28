@@ -46,7 +46,7 @@ class AddSeniorToEventForm extends React.Component{
                                 }
                             </select>
                         </div>
-                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-primary">Hozzáadás</button>
+                    <button onClick={() => this.props.onSubmit(this.state)} type="submit" className="btn btn-primary btn-sm">Hozzáadás</button>
                 </div>
             </>
         )

@@ -1,34 +1,51 @@
-import React from 'react'
-import SeniorService from '../../services/senior.service';
+import React from "react"
+import SeniorList from "./senior-list";
+import SeniorService from "../../services/senior.service";
+import SeniorDetail from "./senior-detail";
+import {Route, Switch} from "react-router-dom";
 
 class Seniors extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
-        
+        this.seniorService = new SeniorService();
+
         this.state = {
-            showDetails: false,
-            selectedItem: null
+            seniors: []
         }
+
+        this.getSeniors = this.getSeniors.bind(this);
+        this.onSeniorAdd = this.onSeniorAdd.bind(this);
     }
 
+    onSeniorAdd(senior){
+        this.seniorService.addNewSenior(senior).then(senior => {
+            this.getSeniors();
+        })
+    }
 
-    render(){
+    componentDidMount() {
+        this.getSeniors();
+    }
+
+    getSeniors(){
+        this.seniorService.getAllSeniors().then(seniors => {
+            this.setState({seniors: seniors});
+        })
+    }
+
+    render() {
+        console.log(this.context);
         return(
-        <>
-            <div>
-                <h1>Seniorok</h1>
-                {this.props.seniors.map((senior) => (
-                    <div key={senior.seniorId} className="card">
-                        <div onClick={() => this.props.onSelectSenior(senior)} className="card-body">
-                            <h5 className="card-title">{senior.name}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">{senior.email}</h6>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </>
+            <>
+                <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
+
+                <Switch>
+                    <Route path="/seniors/senior/:id" component={SeniorDetail} />
+                </Switch>
+            </>
+
         )
     }
 }
 
-export default Seniors
+export default Seniors;

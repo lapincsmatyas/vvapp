@@ -41,4 +41,13 @@ public class ReviewResource {
     public ReviewDTO getReviewById(@PathVariable("id") long id) {
         return ReviewMapper.INSTANCE.reviewToReviewDto(reviewService.getReviewById(id));
     }
+
+    @DeleteMapping(value="/{id}")
+    public Review getAllReviewsOfParticipation(
+            @PathVariable("id") long id) {
+
+        Review review = reviewService.getReviewById(id);
+        reviewService.deleteReview(review);
+        return review;
+    }
 }
