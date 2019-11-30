@@ -33,14 +33,20 @@ public class UserResource {
 
         AuthSchResponse authSchResponse = authSchService.getData(authSchTokenResponse);
 
-        Senior senior = seniorService.getSeniorByEmail(authSchResponse.getMail());
+        Senior senior = seniorService.getSeniorByAuthSchId(authSchResponse.getInternal_id());
         if(senior == null){
-            senior = new Senior();
-            senior.setEmail(authSchResponse.getMail());
-            senior.setName(authSchResponse.getDisplayName());
-            senior.setMobile(authSchResponse.getMobile());
+            senior = seniorService.getSeniorByEmail(authSchResponse.getMail());
+            if(senior == null){
+                senior = new Senior();
+                senior.setEmail(authSchResponse.getMail());
+                senior.setName(authSchResponse.getDisplayName());
+                senior.setMobile(authSchResponse.getMobile());
+            } else{
+                senior.setAuthSchId(authSchResponse.getInternal_id());
+            }
+            senior = seniorService.saveSenior(senior);
         }
-        senior = seniorService.saveSenior(senior);
+
         return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
     }
 }

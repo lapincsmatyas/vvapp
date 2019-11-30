@@ -24,7 +24,11 @@ public class SeniorService {
         return seniorRepository.save(senior);
     }
 
-    public Senior getSeniorByEmail(String mail) {
-        return seniorRepository.findByEmail(mail);
+    public Senior getSeniorByAuthSchId(String authSchId) {
+        return seniorRepository.findByAuthSchId(authSchId);
+    }
+
+    public Senior getSeniorByEmail(String email){
+        return seniorRepository.findByEmail(email);
     }
 }

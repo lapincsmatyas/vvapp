@@ -16,6 +16,7 @@ public class Senior {
     private String name;
     private String email;
     private String mobile;
+    private String authSchId;
 
     @OneToMany(mappedBy = "senior")
     private Set<Participation> participations;
@@ -61,5 +62,13 @@ public class Senior {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getAuthSchId() {
+        return authSchId;
+    }
+
+    public void setAuthSchId(String authSchId) {
+        this.authSchId = authSchId;
     }
 }
