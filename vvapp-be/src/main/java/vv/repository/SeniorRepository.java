@@ -7,4 +7,5 @@ import vv.model.Senior;
 import java.util.List;
 
 public interface SeniorRepository extends JpaRepository<Senior, Long> {
+    Senior findByEmail(String mail);
 }

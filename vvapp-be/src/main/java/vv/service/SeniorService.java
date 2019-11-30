@@ -23,4 +23,8 @@ public class SeniorService {
     public Senior saveSenior(Senior senior) {
         return seniorRepository.save(senior);
     }
+
+    public Senior getSeniorByEmail(String mail) {
+        return seniorRepository.findByEmail(mail);
+    }
 }

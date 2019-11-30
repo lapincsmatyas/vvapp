@@ -2,19 +2,14 @@ package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import vv.dto.ParticipationDTO;
 import vv.dto.SeniorDTO;
 import vv.dto.SeniorDetailDTO;
-import vv.helper.mapper.ParticipationMapper;
 import vv.helper.mapper.SeniorMapper;
-import vv.model.Participation;
+import vv.model.AuthSchResponse;
+import vv.model.AuthSchTokenResponse;
 import vv.model.Senior;
-import vv.service.ParticipationService;
+import vv.service.AuthSchService;
 import vv.service.SeniorService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -22,15 +17,30 @@ import java.util.stream.Collectors;
 public class UserResource {
 
     @Autowired
+    AuthSchTokenResponse authSchTokenResponse;
+
+    @Autowired
     SeniorService seniorService;
+
+    @Autowired
+    AuthSchService authSchService;
 
     //TODO implement autentication
     @GetMapping(value = "/current")
-    public SeniorDetailDTO getCurrentUser() {
-        List<Senior> seniors = seniorService.getAllSeniors();
-        if(seniors.size() == 0)
-            return null;
-        else
-            return SeniorMapper.INSTANCE.seniorToSeniorDetailDto(seniors.get(0));
+    public SeniorDTO getCurrentUser(@RequestParam(value="authorizationCode", required = false)String authorizationCode) {
+        if(this.authSchTokenResponse.getAccess_token() == null)
+            authSchService.getToken(authorizationCode);
+
+        AuthSchResponse authSchResponse = authSchService.getData(authSchTokenResponse);
+
+        Senior senior = seniorService.getSeniorByEmail(authSchResponse.getMail());
+        if(senior == null){
+            senior = new Senior();
+            senior.setEmail(authSchResponse.getMail());
+            senior.setName(authSchResponse.getDisplayName());
+            senior.setMobile(authSchResponse.getMobile());
+        }
+        senior = seniorService.saveSenior(senior);
+        return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
     }
 }

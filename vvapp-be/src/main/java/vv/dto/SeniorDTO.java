@@ -4,6 +4,7 @@ public class SeniorDTO {
     private Long seniorId;
     private String name;
     private String email;
+    private String mobile;
 
     public String getName() {
         return name;
@@ -27,5 +28,13 @@ public class SeniorDTO {
 
     public void setSeniorId(Long seniorId) {
         this.seniorId = seniorId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

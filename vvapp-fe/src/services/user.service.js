@@ -1,6 +1,6 @@
 class UserService{
-    async getCurrentUser(){
-        return fetch('http://localhost:8080/user/current')
+    async getCurrentUser(code){
+        return fetch(`http://localhost:8080/user/current?authorizationCode=${code}`)
         .then(res => res.json())
         .then(data => {
             return data;

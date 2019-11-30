@@ -15,6 +15,7 @@ public class Senior {
 
     private String name;
     private String email;
+    private String mobile;
 
     @OneToMany(mappedBy = "senior")
     private Set<Participation> participations;
@@ -52,5 +53,13 @@ public class Senior {
 
     public void setParticipations(Set<Participation> participations) {
         this.participations = participations;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

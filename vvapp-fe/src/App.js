@@ -22,29 +22,36 @@ class App extends React.Component{
   }
 
   componentDidMount() {
-      this.userService.getCurrentUser().then(result => {
-          this.setState({current: result})
-      })
+      const code =
+          window.location.href.match(/code=(.*)/) &&
+          window.location.href.match(/code=(.*)/)[1];
+      if(code) {
+          this.userService.getCurrentUser(code).then(result => {
+              this.setState({current: result});
+          })
+      };
   }
 
     render() {
-      if(!this.state.current) return null;
+
       return (
+          <>
+              <Header current={this.state.current} />
+              {this.state.current &&
+                  <CurrentUserContext.Provider value={this.state.current}>
+                      <div style={{width: "50%", margin: "0 auto"}}>
+                          <Switch>
+                              <Route exact path="/"/>
+                              <Route path="/seniors" component={Seniors}/>
+                              <Route path="/events" component={Events}/>
+                              <Route path="/event-types" component={EventTypes}/>
 
-               <CurrentUserContext.Provider value={this.state.current}>
-                   <Header />
-                   <div style={{width: "50%", margin: "0 auto"} }>
-                       <Switch>
-                           <Route exact path="/"/>
-                           <Route path="/seniors" component={Seniors} />
-                           <Route path="/events" component={Events} />
-                           <Route path="/event-types" component={EventTypes} />
-
-                           <Route path="/events/event/:id/seniors/add" component={AddSeniorToEventForm}/>
-                       </Switch>
-                   </div>
-               </CurrentUserContext.Provider>
-
+                              <Route path="/events/event/:id/seniors/add" component={AddSeniorToEventForm}/>
+                          </Switch>
+                      </div>
+                  </CurrentUserContext.Provider>
+              }
+        </>
       );
   }
 }
