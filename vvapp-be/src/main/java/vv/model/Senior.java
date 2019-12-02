@@ -28,6 +28,8 @@ public class Senior {
     @OneToMany(mappedBy = "senior")
     private Set<Review> reviews;
 
+    private String role;
+
     public String getName() {
         return name;
     }
@@ -82,5 +84,13 @@ public class Senior {
 
     public void setGroup(SeniorGroup group) {
         this.group = group;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

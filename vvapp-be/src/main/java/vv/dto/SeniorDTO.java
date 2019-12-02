@@ -6,6 +6,7 @@ public class SeniorDTO {
     private String email;
     private String mobile;
     private SeniorGroupDTO group;
+    private String role;
 
     public String getName() {
         return name;
@@ -45,5 +46,13 @@ public class SeniorDTO {
 
     public void setGroup(SeniorGroupDTO group) {
         this.group = group;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

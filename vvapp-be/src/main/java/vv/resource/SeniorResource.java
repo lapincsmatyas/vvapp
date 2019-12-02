@@ -6,6 +6,7 @@ import vv.dto.ParticipationDTO;
 import vv.dto.SeniorDTO;
 import vv.dto.SeniorDetailDTO;
 import vv.helper.mapper.ParticipationMapper;
+import vv.helper.mapper.SeniorGroupMapper;
 import vv.helper.mapper.SeniorMapper;
 import vv.model.Participation;
 import vv.model.Senior;
@@ -67,5 +68,16 @@ public class SeniorResource {
     public ParticipationDTO addEventToSenior(@PathVariable("seniorId") long seniorId, @RequestParam long eventId, @RequestParam long eventRoleId){
         return ParticipationMapper.INSTANCE.participationToParticipationDto(
                 participationService.createParticipation(eventId, seniorId, eventRoleId));
+    }
+
+    @PatchMapping(value = "/{seniorId}")
+    public SeniorDTO patchSenior(@RequestBody SeniorDTO seniorDTO){
+        Senior senior = seniorService.getSeniorById(seniorDTO.getSeniorId());
+        if(seniorDTO.getName() != null) senior.setName(seniorDTO.getName());
+        if(seniorDTO.getEmail() != null) senior.setEmail(seniorDTO.getEmail());
+        if(seniorDTO.getGroup() != null) senior.setGroup(SeniorGroupMapper.INSTANCE.groupDtoToGroup(seniorDTO.getGroup()));
+        if(seniorDTO.getMobile() != null) senior.setMobile(seniorDTO.getMobile());
+        if(seniorDTO.getRole() != null) senior.setRole(seniorDTO.getRole());
+        return SeniorMapper.INSTANCE.seniorToSeniorDto(seniorService.saveSenior(senior));
     }
 }
