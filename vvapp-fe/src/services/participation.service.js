@@ -1,6 +1,6 @@
 class ParticipationService {
     async getParticipationById(id) {
-        return fetch(`http://localhost:8080/participation/${id}`)
+        return fetch(`http://152.66.178.92:8080/participation/${id}`)
             .then(res => res.json())
             .then(data => {
                 return data;
@@ -12,7 +12,7 @@ class ParticipationService {
 
     async addReviewToParticipation(participation, senior, text){
         console.log(senior);
-        return fetch(`http://localhost:8080/participation/${participation.participationId}/review?seniorId=${senior.seniorId}`, {
+        return fetch(`http://152.66.178.92:8080/participation/${participation.participationId}/review?seniorId=${senior.seniorId}`, {
             method: "POST",
             mode: "cors",
             headers: {

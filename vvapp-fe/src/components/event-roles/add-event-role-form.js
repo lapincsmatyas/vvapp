@@ -21,6 +21,7 @@ class AddEventRoleForm extends React.Component {
                         <input className="ml-2" name="name" value={this.state.name} onChange={this.handleChange}
                                type="text" id="eventTypeName"/>
                     </div>
+
                     <button onClick={() => {this.props.onSubmit(this.state);this.setState({name: ""})}} type="submit"
                             className="btn btn-success btn-sm">Hozzáadás
                     </button>

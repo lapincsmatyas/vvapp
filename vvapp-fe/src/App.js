@@ -12,17 +12,23 @@ import EventTypes from "./components/event-types/event-types";
 import Profile from "./components/profile/profile";
 
 class App extends React.Component{
+    setCurrent = current => {
+        console.log("lol");
+        this.setState({current: current});
+    }
 
   constructor(props){
     super(props);
     this.state = {
-        current: null
+        current: null,
+        setCurrent: this.setCurrent
     };
 
     this.userService = new UserService();
   }
 
   componentDidMount() {
+        console.log(process.env.REACT_APP_SERVER_PORT);
       const code =
           window.location.href.match(/code=(.*)/) &&
           window.location.href.match(/code=(.*)/)[1];
@@ -33,14 +39,15 @@ class App extends React.Component{
       };
   }
 
-    render() {
 
+
+    render() {
       return (
           <>
               <Header current={this.state.current} />
               {this.state.current &&
-                  <CurrentUserContext.Provider value={this.state.current}>
-                      <div style={{width: "50%", margin: "0 auto"}}>
+                  <CurrentUserContext.Provider value={this.state}>
+                      <div style={{width: "75%", margin: "0 auto"}}>
                           <Switch>
                               <Route exact path="/"/>
                               <Route path="/seniors" component={Seniors}/>

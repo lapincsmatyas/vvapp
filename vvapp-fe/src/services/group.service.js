@@ -1,6 +1,6 @@
-class UserService{
-    async getCurrentUser(code){
-        return fetch(`http://152.66.178.92:8080/user/current?authorizationCode=${code}`)
+class GroupService{
+    async getAllGroups(){
+        return fetch('http://152.66.178.92:8080/group')
         .then(res => res.json())
         .then(data => {
             return data;
@@ -11,4 +11,4 @@ class UserService{
     }
 }
 
-export default UserService
+export default GroupService

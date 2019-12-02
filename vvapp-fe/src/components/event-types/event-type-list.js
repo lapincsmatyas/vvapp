@@ -5,8 +5,11 @@ import AddSeniorToEventForm from "../events/add-senior-to-event-form";
 import EventTypeDetail from "./event-type-detail";
 import AddEventForm from "../events/add-event-form";
 import AddEventTypeForm from "./add-event-type-form";
+import CurrentUserContext from "../../CurrentUserContext";
 
 class EventTypeList extends React.Component {
+    static contextType = CurrentUserContext;
+
     constructor(props) {
         super(props);
     }
@@ -31,9 +34,13 @@ class EventTypeList extends React.Component {
                     </ul>
 
                     <div>
-                        <Link to={`/event-types/add`}>
-                            <button className="btn btn-success btn-sm m-2">Hozzáadás</button>
-                        </Link>
+                        {
+                            this.context.current.role === "ADMIN" &&
+                            <Link to={`/event-types/add`}>
+                                <button className="btn btn-success btn-sm m-2">Hozzáadás</button>
+                            </Link>
+                        }
+
                     </div>
 
                     <Route exact path="/event-types/add"

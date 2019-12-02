@@ -1,8 +1,11 @@
 import React from 'react'
 import {Link, Route} from 'react-router-dom'
 import AddSeniorForm from "./add-senior-form";
+import CurrentUserContext from "../../CurrentUserContext";
 
 class SeniorList extends React.Component{
+    static contextType = CurrentUserContext;
+
     constructor(props){
         super(props);
 
@@ -31,9 +34,13 @@ class SeniorList extends React.Component{
                         </ul>
                 </div>
             <div>
-                <Link to={`/seniors/add`}>
-                    <button className="btn btn-success btn-sm mt-2">Hozzáadás</button>
-                </Link>
+                {
+                    this.context.current.role === "ADMIN" &&
+
+                    <Link to={`/seniors/add`}>
+                        <button className="btn btn-success btn-sm mt-2">Hozzáadás</button>
+                    </Link>
+                }
             </div>
 
             <Route exact path="/seniors/add"

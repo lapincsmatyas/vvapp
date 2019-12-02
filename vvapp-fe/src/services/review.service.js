@@ -1,7 +1,7 @@
 class ReviewService{
 
     deleteReview(review){
-        return fetch(`http://localhost:8080/review/${review.reviewId}`, {
+        return fetch(`http://152.66.178.92:8080/review/${review.reviewId}`, {
             method: "DELETE",
             mode: "cors",
             headers: {

@@ -1,8 +1,11 @@
 import React from 'react'
 import {Link, Route} from "react-router-dom";
 import AddEventForm from "./add-event-form";
+import CurrentUserContext from "../../CurrentUserContext";
 
 class EventList extends React.Component{
+    static contextType = CurrentUserContext;
+
     render() {
         return(
             <div className="m-3">
@@ -20,9 +23,11 @@ class EventList extends React.Component{
                 </div>
 
                 <div>
-                    <Link to={`/events/add`}>
-                        <button className="btn btn-success btn-sm m-2">Hozzáadás</button>
-                    </Link>
+                    { this.context.current.role === "ADMIN" &&
+                        <Link to={`/events/add`}>
+                            <button className="btn btn-success btn-sm m-2">Hozzáadás</button>
+                        </Link>
+                    }
                 </div>
 
                 <Route exact path="/events/add"

@@ -1,6 +1,6 @@
 class SeniorService{
     async getAllSeniors(){
-        return fetch('http://localhost:8080/senior')
+        return fetch('http://152.66.178.92:8080/senior')
         .then(res => res.json())
         .then(data => {
             return data;
@@ -11,7 +11,7 @@ class SeniorService{
     }
 
     async getSeniorById(id){
-        return fetch(`http://localhost:8080/senior/${id}`)
+        return fetch(`http://152.66.178.92:8080/senior/${id}`)
         .then(res => res.json())
         .then(data => {
             return data;
@@ -22,7 +22,7 @@ class SeniorService{
     }
 
     async addNewSenior(newSenior){
-        return fetch('http://localhost:8080/senior', {
+        return fetch('http://152.66.178.92:8080/senior', {
             method: "POST",
             mode: "cors",
             headers: {
@@ -34,6 +34,24 @@ class SeniorService{
         }).catch(error => {
             console.log(error);
         })
+    }
+
+    async patchSenior(senior){
+        return fetch(`http://152.66.178.92:8080/senior/${senior.seniorId}`, {
+            method: "PATCH",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(senior)
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+            .catch( error => {
+                console.log(error)
+            });
     }
 }
 

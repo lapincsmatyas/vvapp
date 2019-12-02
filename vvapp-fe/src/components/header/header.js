@@ -12,6 +12,7 @@ class Header extends React.Component{
 
     render() {
         return(
+
             <ul className="nav nav-tabs">
 
                 { this.props.current && (<>
@@ -37,6 +38,7 @@ class Header extends React.Component{
                     }
                 </li>
             </ul>
+
         )
     }
 }

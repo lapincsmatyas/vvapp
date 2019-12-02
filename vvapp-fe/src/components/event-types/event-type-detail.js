@@ -2,8 +2,11 @@ import React from 'react'
 import EventService from "../../services/event.service";
 import AddEventTypeForm from "./add-event-type-form";
 import AddEventRoleForm from "../event-roles/add-event-role-form";
+import CurrentUserContext from "../../CurrentUserContext";
 
 class EventTypeDetail extends React.Component{
+    static contextType = CurrentUserContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -59,7 +62,7 @@ class EventTypeDetail extends React.Component{
                         <AddEventRoleForm onSubmit={this.onEventRoleAdd}  />
                     </span>
                 }
-                { !this.state.showAddEventTypeForm &&
+                { !this.state.showAddEventTypeForm && this.context.current.role === "ADMIN" &&
                     <div>
                         <button type="submit" onClick={() => this.setState({showAddEventTypeForm: true})} className="btn btn-success btn-sm ml-4">Hozzáadás</button>
                     </div>
