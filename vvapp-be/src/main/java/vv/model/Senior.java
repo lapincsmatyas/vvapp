@@ -18,6 +18,10 @@ public class Senior {
     private String mobile;
     private String authSchId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private SeniorGroup group;
+
     @OneToMany(mappedBy = "senior")
     private Set<Participation> participations;
 
@@ -70,5 +74,13 @@ public class Senior {
 
     public void setAuthSchId(String authSchId) {
         this.authSchId = authSchId;
+    }
+
+    public SeniorGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(SeniorGroup group) {
+        this.group = group;
     }
 }

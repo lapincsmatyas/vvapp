@@ -7,6 +7,7 @@ public class SeniorDetailDTO {
     private String name;
     private String email;
     private List<ParticipationDTO> participations;
+    private SeniorGroupDTO group;
 
     public String getName() {
         return name;
@@ -38,5 +39,13 @@ public class SeniorDetailDTO {
 
     public void setParticipations(List<ParticipationDTO> participations) {
         this.participations = participations;
+    }
+
+    public SeniorGroupDTO getGroup() {
+        return group;
+    }
+
+    public void setGroup(SeniorGroupDTO group) {
+        this.group = group;
     }
 }
