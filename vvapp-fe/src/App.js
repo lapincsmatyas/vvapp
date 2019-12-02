@@ -9,6 +9,7 @@ import EventDetail from "./components/events/event-detail";
 import AddSeniorToEventForm from "./components/events/add-senior-to-event-form";
 import Header from "./components/header/header";
 import EventTypes from "./components/event-types/event-types";
+import Profile from "./components/profile/profile";
 
 class App extends React.Component{
 
@@ -45,7 +46,7 @@ class App extends React.Component{
                               <Route path="/seniors" component={Seniors}/>
                               <Route path="/events" component={Events}/>
                               <Route path="/event-types" component={EventTypes}/>
-
+                              <Route path="/profile" component={Profile}/>
                               <Route path="/events/event/:id/seniors/add" component={AddSeniorToEventForm}/>
                           </Switch>
                       </div>

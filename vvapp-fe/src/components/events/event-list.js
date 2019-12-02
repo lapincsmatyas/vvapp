@@ -7,7 +7,7 @@ class EventList extends React.Component{
         return(
             <div className="m-3">
                 <div>
-                    <h1>Események</h1>
+                    <h4>Események</h4>
                     <ul className="list-group">
                         {this.props.events.map((event) => (
                             <li key={event.eventId} className="list-group-item">

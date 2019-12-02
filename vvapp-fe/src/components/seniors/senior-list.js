@@ -18,7 +18,7 @@ class SeniorList extends React.Component{
 
         <div className="m-3">
                 <div>
-                    <h1>Seniorok</h1>
+                    <h4>Seniorok</h4>
 
                         <ul className="list-group">
                             {this.props.seniors.map((senior) => (

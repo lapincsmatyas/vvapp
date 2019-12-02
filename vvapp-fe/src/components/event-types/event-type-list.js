@@ -19,7 +19,7 @@ class EventTypeList extends React.Component {
         return (
             <>
                 <div className="m-3">
-                    <h1>Esemény típusok</h1>
+                    <h4>Esemény típusok</h4>
                         <ul className="list-group">
                         {this.props.eventTypes.map((eventType) => (
                             <li key={eventType.eventTypeId} className="list-group-item">

@@ -10,8 +10,6 @@ class Header extends React.Component{
 
     }
 
-
-
     render() {
         return(
             <ul className="nav nav-tabs">
@@ -29,7 +27,9 @@ class Header extends React.Component{
                 </>)}
                 <li className="nav-item ml-auto mr-3">
                     { this.props.current &&
-                        <span className="navbar-text">{this.props.current.name}</span>
+                        <NavLink activeClassName="active" to="/profile">
+                            <span className="navbar-text">{this.props.current.name}</span>
+                        </NavLink>
                     }
                     {
                         !this.props.current &&
