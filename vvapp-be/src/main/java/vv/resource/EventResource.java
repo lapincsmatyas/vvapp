@@ -52,6 +52,7 @@ public class EventResource {
     public EventDTO addEvent(@RequestBody EventDTO eventDTO) {
         Event event = EventMapper.INSTANCE.eventDtoToEvent(eventDTO);
         eventService.saveEvent(event);
+
         return EventMapper.INSTANCE.eventToEventDto(event);
     }
 

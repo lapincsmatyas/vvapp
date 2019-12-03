@@ -63,7 +63,9 @@ class EventDetail extends React.Component{
                     <h5 className="card-title">{this.state.event.name}</h5>
                     <div className="card-text">
                         <p>Típus: {this.state.event.eventType.name}</p>
-
+                        { this.state.event.supervisor &&
+                            <p>Felelős: {this.state.event.supervisor.name}</p>
+                        }
                         <h6>Részvételek</h6>
                         {
                             this.state.event.participations.length > 0 ? (

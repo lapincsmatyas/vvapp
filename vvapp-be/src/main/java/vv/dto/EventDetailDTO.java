@@ -7,6 +7,7 @@ public class EventDetailDTO {
     private String name;
     private EventTypeDTO eventType;
     private List<ParticipationDTO> participations;
+    private SeniorDTO supervisor;
 
     public String getName() {
         return name;
@@ -38,5 +39,13 @@ public class EventDetailDTO {
 
     public void setParticipations(List<ParticipationDTO> participations) {
         this.participations = participations;
+    }
+
+    public SeniorDTO getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(SeniorDTO supervisor) {
+        this.supervisor = supervisor;
     }
 }

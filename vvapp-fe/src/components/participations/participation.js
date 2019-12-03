@@ -33,8 +33,8 @@ class Participation extends React.Component{
     }
 
     onReviewAdd(text){
-        console.log(this.context);
-        this.participationService.addReviewToParticipation(this.state.participation, this.context, text).then(result =>{
+        console.log(this.context.current);
+        this.participationService.addReviewToParticipation(this.state.participation, this.context.current, text).then(result =>{
             this.loadReviews();
         })
     }
@@ -50,6 +50,10 @@ class Participation extends React.Component{
     }
 
     render() {
+        if(this.state.participation) {
+            console.log(this.state.participation.event.supervisor);
+            console.log(this.context.current);
+        }
         return (
             <>
                 <span className="pl-1 mr-1">
@@ -85,7 +89,7 @@ class Participation extends React.Component{
                 </span>
                 {
                     <div>
-                        {(this.state.participation && this.state.participation.reviews) && !this.state.showAddReview &&
+                        {(this.state.participation && this.state.participation.reviews && this.state.participation.event.supervisor.seniorId === this.context.current.seniorId) && !this.state.showAddReview &&
                             <button className="btn btn-success btn-sm ml-4 m-1" onClick={() => this.setState({showAddReview: true})}>Értékelés</button>
                         }
                         {(this.state.participation && this.state.participation.reviews) && this.state.showAddReview &&

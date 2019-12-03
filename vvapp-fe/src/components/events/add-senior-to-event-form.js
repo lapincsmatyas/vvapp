@@ -1,6 +1,9 @@
 import React from 'react'
+import CurrentUserContext from "../../CurrentUserContext";
 
 class AddSeniorToEventForm extends React.Component{
+    static contextType = CurrentUserContext;
+
     constructor(props) {
         super(props);
         this.state = {senior: null, eventRole: null }
@@ -25,7 +28,7 @@ class AddSeniorToEventForm extends React.Component{
                         <label htmlFor="senior">Senior neve:</label>
                         <select className="ml-2" name="senior" onChange={this.handleChange}>
                             <option value={null}/>
-                            {this.props.seniors.map((senior, index) => (
+                            {this.props.seniors.filter(senior => senior.group.groupId === this.context.current.group.groupId).map((senior, index) => (
                                 <option key={senior.seniorId} value={index}>{senior.name}</option>
                             ))}
                         </select>

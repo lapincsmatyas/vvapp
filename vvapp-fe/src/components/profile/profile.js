@@ -31,7 +31,12 @@ class Profile extends React.Component{
 
     handleChange(event){
         if(event.target.name === "group") {
-            this.setState({senior: {...this.state.senior, group: this.state.groups[event.target.value - 1]}});
+            this.setState({
+                senior: {
+                    ...this.state.senior,
+                    group: this.state.groups[event.target.value - 1]
+                }
+            });
             console.log(this.state.senior.group);
         }
         else

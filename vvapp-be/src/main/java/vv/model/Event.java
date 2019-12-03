@@ -22,6 +22,10 @@ public class Event {
     @OneToMany(mappedBy = "event")
     private Set<Participation> participations;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supervisor_id")
+    private Senior supervisor;
+
     public String getName() {
         return name;
     }
@@ -52,5 +56,14 @@ public class Event {
 
     public void setParticipations(Set<Participation> participations) {
         this.participations = participations;
+    }
+
+
+    public Senior getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(Senior supervisor) {
+        this.supervisor = supervisor;
     }
 }

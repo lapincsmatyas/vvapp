@@ -1,6 +1,7 @@
 package vv.model;
 
 import javax.persistence.*;
+import javax.servlet.http.Part;
 import java.util.Set;
 
 @Entity
@@ -28,7 +29,18 @@ public class Senior {
     @OneToMany(mappedBy = "senior")
     private Set<Review> reviews;
 
+    @OneToMany(mappedBy = "supervisor")
+    private Set<Event> supervisor;
+
     private String role;
+
+    public Long getSeniorId() {
+        return seniorId;
+    }
+
+    public void setSeniorId(Long seniorId) {
+        this.seniorId = seniorId;
+    }
 
     public String getName() {
         return name;
@@ -44,22 +56,6 @@ public class Senior {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Long getSeniorId() {
-        return seniorId;
-    }
-
-    public void setSeniorId(Long seniorId) {
-        this.seniorId = seniorId;
-    }
-
-    public Set<Participation> getParticipations() {
-        return participations;
-    }
-
-    public void setParticipations(Set<Participation> participations) {
-        this.participations = participations;
     }
 
     public String getMobile() {
@@ -86,11 +82,37 @@ public class Senior {
         this.group = group;
     }
 
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+
+
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<Event> getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(Set<Event> supervisor) {
+        this.supervisor = supervisor;
     }
 }

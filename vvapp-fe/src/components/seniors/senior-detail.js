@@ -16,6 +16,7 @@ class SeniorDetail extends React.Component{
     componentDidMount() {
         this.seniorService.getSeniorById(this.props.match.params.id).then(senior => {
             this.setState({senior: senior});
+            console.log(senior);
         })
     }
 
@@ -29,13 +30,15 @@ class SeniorDetail extends React.Component{
 
     render(){
        if(!this.state.senior) return null;
-
+        console.log(this.state.senior);
        return(
                    <div className="card m-3" style={{width: "30rem"}}>
                        <div className="card-body">
                            <h5 className="card-title">{this.state.senior.name}</h5>
                            <div className="card-text">
-                               <p>{this.state.senior.email}</p>
+                               <p>Email: {this.state.senior.email}</p>
+                               <p>Mobile: {this.state.senior.mobile}</p>
+                               <p>Gárda: {this.state.senior.group.name}</p>
                                <h6>Részvételek</h6>
                                    {
                                        this.state.senior.participations.length > 0 ? (

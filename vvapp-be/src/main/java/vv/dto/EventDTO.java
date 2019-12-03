@@ -4,7 +4,7 @@ public class EventDTO {
     private Long eventId;
     private String name;
     private EventTypeDTO eventType;
-
+    private SeniorDTO supervisor;
 
     public String getName() {
         return name;
@@ -28,5 +28,13 @@ public class EventDTO {
 
     public void setEventId(Long eventId) {
         this.eventId = eventId;
+    }
+
+    public SeniorDTO getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(SeniorDTO supervisor) {
+        this.supervisor = supervisor;
     }
 }
