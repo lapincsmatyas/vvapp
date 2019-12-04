@@ -36,7 +36,7 @@ class SeniorList extends React.Component{
                 </div>
             <div>
                 {
-                    this.context.current.role === "ADMIN" &&
+                    this.context.current.userRole.name === "VÁRÚR" &&
 
                     <Link to={`/seniors/add`}>
                         <button className="btn btn-success btn-sm mt-2">Hozzáadás</button>

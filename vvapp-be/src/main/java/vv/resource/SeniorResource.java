@@ -8,6 +8,7 @@ import vv.dto.SeniorDetailDTO;
 import vv.helper.mapper.ParticipationMapper;
 import vv.helper.mapper.SeniorGroupMapper;
 import vv.helper.mapper.SeniorMapper;
+import vv.helper.mapper.UserRoleMapper;
 import vv.model.Participation;
 import vv.model.Senior;
 import vv.service.ParticipationService;
@@ -77,7 +78,7 @@ public class SeniorResource {
         if(seniorDTO.getEmail() != null) senior.setEmail(seniorDTO.getEmail());
         if(seniorDTO.getGroup() != null) senior.setGroup(SeniorGroupMapper.INSTANCE.groupDtoToGroup(seniorDTO.getGroup()));
         if(seniorDTO.getMobile() != null) senior.setMobile(seniorDTO.getMobile());
-        if(seniorDTO.getRole() != null) senior.setRole(seniorDTO.getRole());
+        if(seniorDTO.getUserRole() != null) senior.setUserRole(UserRoleMapper.INSTANCE.userRoleDtoToUserRole(seniorDTO.getUserRole()));
         return SeniorMapper.INSTANCE.seniorToSeniorDto(seniorService.saveSenior(senior));
     }
 }

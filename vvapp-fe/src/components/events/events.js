@@ -26,14 +26,12 @@ class Events extends React.Component{
     getEvents(){
         this.eventService.getAllEvents().then(events => {
             this.setState({events: events});
-            console.log(events);
         })
     }
 
     getEventTypes(){
         this.eventService.getAllEventTypes().then(eventTypes => {
             this.setState({eventTypes: eventTypes});
-            console.log(eventTypes);
         })
     }
 

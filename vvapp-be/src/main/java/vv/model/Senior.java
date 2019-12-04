@@ -1,7 +1,6 @@
 package vv.model;
 
 import javax.persistence.*;
-import javax.servlet.http.Part;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,8 +32,11 @@ public class Senior {
     @OneToMany(mappedBy = "supervisor")
     private Set<Event> supervisor;
 
-    private String role;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_role_id")
+    private UserRole userRole;
 
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date lastLogin;
 
     public Long getSeniorId() {
@@ -101,16 +103,6 @@ public class Senior {
         this.reviews = reviews;
     }
 
-
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Set<Event> getSupervisor() {
         return supervisor;
     }
@@ -125,5 +117,13 @@ public class Senior {
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 }

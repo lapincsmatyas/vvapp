@@ -62,7 +62,7 @@ class EventTypeDetail extends React.Component{
                         <AddEventRoleForm onSubmit={this.onEventRoleAdd}  />
                     </span>
                 }
-                { !this.state.showAddEventTypeForm && this.context.current.role === "ADMIN" &&
+                { !this.state.showAddEventTypeForm && this.context.current.userRole.name === "VÁRÚR" &&
                     <div>
                         <button type="submit" onClick={() => this.setState({showAddEventTypeForm: true})} className="btn btn-success btn-sm ml-4">Hozzáadás</button>
                     </div>

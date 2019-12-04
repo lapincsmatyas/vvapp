@@ -35,7 +35,7 @@ class EventTypeList extends React.Component {
 
                     <div>
                         {
-                            this.context.current.role === "ADMIN" &&
+                            this.context.current.userRole.name === "VÁRÚR" &&
                             <Link to={`/event-types/add`}>
                                 <button className="btn btn-success btn-sm m-2">Hozzáadás</button>
                             </Link>
