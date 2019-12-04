@@ -3,6 +3,8 @@ import SeniorList from "./senior-list";
 import SeniorService from "../../services/senior.service";
 import SeniorDetail from "./senior-detail";
 import {Route, Switch} from "react-router-dom";
+import Profile from "../profile/profile";
+import AddSeniorForm from "./add-senior-form";
 
 class Seniors extends React.Component{
     constructor(props) {
@@ -15,6 +17,7 @@ class Seniors extends React.Component{
 
         this.getSeniors = this.getSeniors.bind(this);
         this.onSeniorAdd = this.onSeniorAdd.bind(this);
+        this.onSeniorChange = this.onSeniorChange.bind(this);
     }
 
     onSeniorAdd(senior){
@@ -33,6 +36,12 @@ class Seniors extends React.Component{
         })
     }
 
+    onSeniorChange(senior){
+        this.seniorService.patchSenior(senior).then(result => {
+            this.getSeniors();
+        })
+    }
+
     render() {
         console.log(this.context);
         return(
@@ -40,7 +49,8 @@ class Seniors extends React.Component{
                 <SeniorList onSubmit={this.onSeniorAdd} seniors={this.state.seniors} />
 
                 <Switch>
-                    <Route path="/seniors/senior/:id" component={SeniorDetail} />
+                   <Route  exact path="/seniors/senior/:id"
+                       render={(props) => <Profile {...props} onSubmit={this.onSeniorChange} />}/>
                 </Switch>
             </div>
 

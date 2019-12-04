@@ -14,8 +14,10 @@ class AddSeniorToEventForm extends React.Component{
     handleChange(event){
         if(event.target.name === "eventRole")
             this.setState({eventRole: this.props.eventRoles[event.target.value]});
-        else if(event.target.name === "senior")
-            this.setState({senior: this.props.seniors[event.target.value]});
+        else if(event.target.name === "senior") {
+            let selected = this.props.seniors.find(senior => senior.seniorId == event.target.value);
+            this.setState({senior: selected});
+        }
     }
 
     render() {
@@ -28,8 +30,8 @@ class AddSeniorToEventForm extends React.Component{
                         <label htmlFor="senior">Senior neve:</label>
                         <select className="ml-2" name="senior" onChange={this.handleChange}>
                             <option value={null}/>
-                            {this.props.seniors.filter(senior => senior.group.groupId === this.context.current.group.groupId).map((senior, index) => (
-                                <option key={senior.seniorId} value={index}>{senior.name}</option>
+                            {this.props.seniors.map((senior, index) => (
+                                <option key={senior.seniorId} value={senior.seniorId}>{senior.name}</option>
                             ))}
                         </select>
                     </div>

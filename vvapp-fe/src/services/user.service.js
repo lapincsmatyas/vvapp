@@ -1,6 +1,7 @@
 class UserService{
     async getCurrentUser(code){
-        return fetch(`http://152.66.178.92:8080/user/current?authorizationCode=${code}`)
+        console.log(process.env.REACT_APP_SERVER_ADDRESS);
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/user/current?authorizationCode=${code}`)
         .then(res => res.json())
         .then(data => {
             return data;

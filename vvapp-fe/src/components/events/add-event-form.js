@@ -25,7 +25,7 @@ class AddEventForm extends React.Component{
     componentDidMount() {
         this.eventService.getAllEventTypes().then(result => {
             this.setState({eventTypes: result});
-        })
+        });
         this.seniorService.getAllSeniors().then(result => {
             this.setState({seniors: result});
         })
@@ -39,13 +39,15 @@ class AddEventForm extends React.Component{
                     eventType:  this.state.eventTypes[ev.target.value]
                 }
             });
-        else if(ev.target.name === "supervisor")
+        else if(ev.target.name === "supervisor") {
+            let selected = this.state.seniors.find(act => act.seniorId == ev.target.value);
             this.setState({
                 event: {
                     ...this.state.event,
-                    senior:  this.state.seniors[ev.target.value]
+                    supervisor: selected
                 }
             });
+        }
         else{
             this.setState({
                 event: {
@@ -54,6 +56,8 @@ class AddEventForm extends React.Component{
                 }
             });
         }
+
+
     }
 
     render() {
@@ -80,7 +84,7 @@ class AddEventForm extends React.Component{
                             <select className="ml-2" name="supervisor" onChange={this.handleChange}>
                                 <option value={null}> </option>
                                 {this.state.seniors.map((senior, index) => (
-                                    <option key={senior.seniorId} value={index}>{senior.name}</option>
+                                    <option key={senior.seniorId} value={senior.seniorId}>{senior.name}</option>
                                 ))}
                             </select>
                         </div>

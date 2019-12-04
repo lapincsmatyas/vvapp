@@ -1,7 +1,8 @@
 import React from 'react'
-import {Link, Route} from 'react-router-dom'
+import {Link, Route, Switch} from 'react-router-dom'
 import AddSeniorForm from "./add-senior-form";
 import CurrentUserContext from "../../CurrentUserContext";
+import Profile from "../profile/profile";
 
 class SeniorList extends React.Component{
     static contextType = CurrentUserContext;

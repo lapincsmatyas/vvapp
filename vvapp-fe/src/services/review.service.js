@@ -1,7 +1,7 @@
 class ReviewService{
 
     deleteReview(review){
-        return fetch(`http://152.66.178.92:8080/review/${review.reviewId}`, {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/review/${review.reviewId}`, {
             method: "DELETE",
             mode: "cors",
             headers: {

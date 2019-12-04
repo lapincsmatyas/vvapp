@@ -1,6 +1,6 @@
 class EventService{
     async getAllEvents(){
-        return fetch('http://152.66.178.92:8080/event')
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event`)
         .then(res => res.json())
         .then(data => {
             return data;
@@ -11,7 +11,7 @@ class EventService{
     }
 
     async getEventById(id){
-        return fetch(`http://152.66.178.92:8080/event/${id}`)
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event/${id}`)
         .then(res => res.json())
         .then(data => {
             return data;
@@ -22,7 +22,7 @@ class EventService{
     }
 
     async getAllEventTypes(){
-        return fetch(`http://152.66.178.92:8080/event-type`)
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-type`)
             .then(res => res.json())
             .then(data => {
                 return data;
@@ -33,7 +33,7 @@ class EventService{
     }
 
     async getEventTypeById(id){
-        return fetch(`http://152.66.178.92:8080/event-type/${id}`)
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-type/${id}`)
             .then(res => res.json())
             .then(data => {
                 return data;
@@ -44,7 +44,7 @@ class EventService{
     }
 
     async createEvent(event){
-        return fetch('http://152.66.178.92:8080/event', {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event`, {
             method: "POST",
             mode: "cors",
             headers: {
@@ -59,7 +59,7 @@ class EventService{
     }
 
     async createEventType(eventType){
-        return fetch('http://152.66.178.92:8080/event-type', {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-type`, {
             method: "POST",
             mode: "cors",
             headers: {
@@ -74,7 +74,7 @@ class EventService{
     }
 
     getAllEventRoles() {
-        return fetch(`http://152.66.178.92:8080/event-role`)
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-role`)
             .then(res => res.json())
             .then(data => {
                 return data;
@@ -85,7 +85,7 @@ class EventService{
     }
 
     createEventRole(eventRole) {
-        return fetch('http://152.66.178.92:8080/event-role', {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-role`, {
             method: "POST",
             mode: "cors",
             headers: {
@@ -101,7 +101,7 @@ class EventService{
 
     addSeniorToEvent(event, senior, role){
         console.log(event, senior, role);
-        return fetch(`http://152.66.178.92:8080/event/${event.eventId}/seniors?seniorId=${senior.seniorId}&eventRoleId=${role.eventRoleId}`, {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event/${event.eventId}/seniors?seniorId=${senior.seniorId}&eventRoleId=${role.eventRoleId}`, {
             method: "POST",
             mode: "cors",
             headers: {

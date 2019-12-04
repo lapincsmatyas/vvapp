@@ -1,6 +1,6 @@
 class SeniorService{
     async getAllSeniors(){
-        return fetch('http://152.66.178.92:8080/senior')
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/senior`)
         .then(res => res.json())
         .then(data => {
             return data;
@@ -11,7 +11,7 @@ class SeniorService{
     }
 
     async getSeniorById(id){
-        return fetch(`http://152.66.178.92:8080/senior/${id}`)
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/senior/${id}`)
         .then(res => res.json())
         .then(data => {
             return data;
@@ -22,7 +22,7 @@ class SeniorService{
     }
 
     async addNewSenior(newSenior){
-        return fetch('http://152.66.178.92:8080/senior', {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}:8080/senior`, {
             method: "POST",
             mode: "cors",
             headers: {
@@ -37,7 +37,7 @@ class SeniorService{
     }
 
     async patchSenior(senior){
-        return fetch(`http://152.66.178.92:8080/senior/${senior.seniorId}`, {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/senior/${senior.seniorId}`, {
             method: "PATCH",
             mode: "cors",
             headers: {

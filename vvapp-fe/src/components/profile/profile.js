@@ -1,7 +1,7 @@
 import React from "react"
-import CurrentUserContext from "../../CurrentUserContext";
 import SeniorService from "../../services/senior.service";
 import GroupService from "../../services/group.service";
+import CurrentUserContext from "../../CurrentUserContext";
 
 class Profile extends React.Component{
     static contextType = CurrentUserContext;
@@ -19,14 +19,32 @@ class Profile extends React.Component{
 
         this.handleChange = this.handleChange.bind(this);
         this.onCancel = this.onCancel.bind(this);
+        this.editSenior = this.editSenior.bind(this);
     }
 
     componentDidMount() {
-        this.setState({senior: {...this.context.current, group: {...this.context.current.group}}});
+        console.log(this.props.senior);
+        if(this.props.senior != null) {
+            this.setState({senior: this.props.senior});
+        } else {
+            this.seniorService.getSeniorById(this.props.match.params.id).then(senior => {
+                this.setState({senior: senior});
+            });
+        }
 
         this.groupService.getAllGroups().then(groups =>{
             this.setState({groups: groups.sort((a,b) => a.groupId > b.groupId)});
         });
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.match) {
+            if (prevProps.match.params.id !== this.props.match.params.id) {
+                this.seniorService.getSeniorById(this.props.match.params.id).then(senior => {
+                    this.setState({senior: senior});
+                });
+            }
+        }
     }
 
     handleChange(event){
@@ -45,15 +63,13 @@ class Profile extends React.Component{
     }
 
     onCancel(){
-        this.setState({senior: {...this.context}, edit: false});
+        this.setState({senior: this.props.senior, edit: false});
     }
 
     render() {
         if(this.state.senior == null) return null;
-        console.log(this.state.senior);
+        console.log(this.context.current);
         return (
-            <CurrentUserContext.Consumer>
-                {({ current, setCurrent }) =>(
             <div className="m-3">
                 <h4>Profil</h4>
                 <div className="card p-3">
@@ -87,28 +103,31 @@ class Profile extends React.Component{
                                 </select>
                             </div>
                         </form>
-                        <button className={"btn " + "btn" + (this.state.edit ? "-success" : "-primary") +  " btn-sm"} onClick={() => this.editSenior(setCurrent)}>Szerkeszt</button>
-                        {
-                            this.state.edit &&
-                            <button className={"btn btn-danger btn-sm ml-3"}
-                                 onClick={() => this.onCancel()}>Mégse</button>
+                        { (this.state.senior.seniorId === this.context.current.seniorId || this.context.current.role === "ADMIN") &&
+                            <div>
+                                <button className={"btn " + "btn" + (this.state.edit ? "-success" : "-primary") + " btn-sm"}
+                                        onClick={this.editSenior}>{(this.state.edit ? "Mentés" : "Szerkesztés")}</button>
+                                    {
+                                        this.state.edit &&
+                                        <button className={"btn btn-danger btn-sm ml-3"}
+                                        onClick={this.onCancel}>Mégse</button>
+                                    }
+                            </div>
                         }
                     </div>
                 </div>
             </div>
-                )}
-            </CurrentUserContext.Consumer>
         );
     }
 
-    editSenior(editCurrent) {
-        if(this.state.edit == false)
+    editSenior() {
+        if(this.state.edit === false)
             this.setState({edit: true});
         else{
             this.setState({senior: {...this.state.senior, ...this.state.inputs}});
             this.seniorService.patchSenior(this.state.senior);
             this.setState({edit: false});
-            editCurrent(this.state.senior);
+            this.props.onSubmit(this.state.senior);
         }
     }
 }

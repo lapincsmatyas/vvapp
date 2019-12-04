@@ -1,6 +1,6 @@
 class GroupService{
     async getAllGroups(){
-        return fetch('http://152.66.178.92:8080/group')
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/group`)
         .then(res => res.json())
         .then(data => {
             return data;

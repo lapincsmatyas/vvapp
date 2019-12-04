@@ -11,6 +11,8 @@ import vv.model.Senior;
 import vv.service.AuthSchService;
 import vv.service.SeniorService;
 
+import java.util.Date;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/user")
@@ -44,8 +46,9 @@ public class UserResource {
             } else{
                 senior.setAuthSchId(authSchResponse.getInternal_id());
             }
-            senior = seniorService.saveSenior(senior);
         }
+        senior.setLastLogin(new Date());
+        senior = seniorService.saveSenior(senior);
 
         return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
     }

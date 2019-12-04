@@ -2,6 +2,7 @@ package vv.model;
 
 import javax.persistence.*;
 import javax.servlet.http.Part;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,8 @@ public class Senior {
     private Set<Event> supervisor;
 
     private String role;
+
+    private Date lastLogin;
 
     public Long getSeniorId() {
         return seniorId;
@@ -114,5 +117,13 @@ public class Senior {
 
     public void setSupervisor(Set<Event> supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }
