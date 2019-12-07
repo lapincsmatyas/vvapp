@@ -33,7 +33,6 @@ class Participation extends React.Component{
     }
 
     onReviewAdd(text){
-        console.log(this.context.current);
         this.participationService.addReviewToParticipation(this.state.participation, this.context.current, text).then(result =>{
             this.loadReviews();
         })
@@ -50,10 +49,6 @@ class Participation extends React.Component{
     }
 
     render() {
-        if(this.state.participation) {
-            console.log(this.state.participation.event.supervisor);
-            console.log(this.context.current);
-        }
         return (
             <>
                 <span className="pl-1 mr-1">

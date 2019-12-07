@@ -12,12 +12,18 @@ class AddSeniorToEventForm extends React.Component{
     }
 
     handleChange(event){
-        if(event.target.name === "eventRole")
-            this.setState({eventRole: this.props.eventRoles[event.target.value]});
+        if(event.target.name === "eventRole"){
+            let selected = this.props.eventRoles.find(eventRole => eventRole.eventRoleId == event.target.value);
+            console.log("eventTargetValue: ", event.target.value);
+            console.log(this.props.eventRoles);
+            this.setState({eventRole: selected})
+        }
         else if(event.target.name === "senior") {
             let selected = this.props.seniors.find(senior => senior.seniorId == event.target.value);
             this.setState({senior: selected});
         }
+
+        console.log("state: ", this.state);
     }
 
     render() {
@@ -42,7 +48,7 @@ class AddSeniorToEventForm extends React.Component{
                                 {
                                     this.props.eventRoles.filter(eventRole => eventRole.eventType.eventTypeId === this.props.event.eventType.eventTypeId)
                                         .map((eventRole, index) => (
-                                            <option key={eventRole.eventRoleId} value={index}>{eventRole.name}</option>
+                                            <option key={eventRole.eventRoleId} value={eventRole.eventRoleId}>{eventRole.name}</option>
                                         ))
                                 }
                             </select>
