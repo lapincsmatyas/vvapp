@@ -1,18 +1,16 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.EventDTO;
 import vv.dto.EventTypeDTO;
 import vv.dto.EventTypeDetailDTO;
 import vv.helper.mapper.EventMapper;
 import vv.helper.mapper.EventTypeMapper;
-import vv.model.Event;
-import vv.model.EventRole;
-import vv.model.EventType;
-import vv.service.EventRoleService;
-import vv.service.EventService;
-import vv.service.EventTypeService;
+import vv.model.*;
+import vv.service.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +29,15 @@ public class EventTypeResource {
     @Autowired
     EventService eventService;
 
+    @Autowired
+    SeniorService seniorService;
+
+    @Autowired
+    AuthSchTokenResponse authSchTokenResponse;
+
+    @Autowired
+    AuthSchService authSchService;
+
     @GetMapping
     public List<EventTypeDTO> getAllEventTypes(){
         List<EventType> eventTypes = eventTypeService.getAllEventTypes();
@@ -38,10 +45,15 @@ public class EventTypeResource {
     }
 
     @PostMapping
-    public EventTypeDTO addEventType(@RequestBody EventTypeDTO eventTypeDTO){
+    public ResponseEntity addEventType(@RequestBody EventTypeDTO eventTypeDTO){
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
+            return new ResponseEntity<>("Only ADMIN users can create event roles!", HttpStatus.UNAUTHORIZED);
+        }
+
         EventType eventType = EventTypeMapper.INSTANCE.eventTypeDtoToEventType(eventTypeDTO);
         eventTypeService.saveEventType(eventType);
-        return EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType);
+        return new ResponseEntity<>(EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/events")

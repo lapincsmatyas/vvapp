@@ -19,7 +19,7 @@ public class Senior {
     private String mobile;
     private String authSchId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id")
     private SeniorGroup group;
 
@@ -32,7 +32,7 @@ public class Senior {
     @OneToMany(mappedBy = "supervisor")
     private Set<Event> supervisor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_role_id")
     private UserRole userRole;
 

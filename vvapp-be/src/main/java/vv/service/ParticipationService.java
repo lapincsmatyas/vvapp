@@ -49,12 +49,9 @@ public class ParticipationService {
         return participationRepository.findById(id).orElse(null);
     }
 
-    public Review createReviewToParticipation(long participationId, long seniorId, String text){
-        Participation participation = participationRepository.findById(participationId).orElse(null);
+    public Review createReviewToParticipation(Participation participation, Senior senior, String text){
         if(participation == null)
             return null;
-
-        Senior senior = seniorService.getSeniorById(seniorId);
         if(senior == null){
             return null;
         }

@@ -1,19 +1,16 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.*;
 import vv.helper.mapper.EventMapper;
 import vv.helper.mapper.ParticipationMapper;
 import vv.helper.mapper.ReviewMapper;
-import vv.model.Event;
-import vv.model.Participation;
-import vv.model.Review;
+import vv.model.*;
 import vv.repository.EventRoleRepository;
-import vv.service.EventService;
-import vv.service.ParticipationService;
-import vv.service.ReviewService;
-import vv.service.SeniorService;
+import vv.service.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +22,15 @@ public class ParticipationResource {
 
     @Autowired
     ParticipationService participationService;
+
+    @Autowired
+    SeniorService seniorService;
+
+    @Autowired
+    AuthSchTokenResponse authSchTokenResponse;
+
+    @Autowired
+    AuthSchService authSchService;
 
     @GetMapping
     public List<ParticipationDTO> getAllParticipations() {
@@ -38,12 +44,19 @@ public class ParticipationResource {
     }
 
     @PostMapping(value = "/{id}/review")
-    public ReviewDTO addReviewToParticipation(
+    public ResponseEntity addReviewToParticipation(
             @PathVariable("id") long participationId,
-            @RequestParam("seniorId") long seniorId,
             @RequestBody String text) {
-        Review review = participationService.createReviewToParticipation(participationId, seniorId, text);
-        return ReviewMapper.INSTANCE.reviewToReviewDto(review);
+
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Participation participation = participationService.getParticipationById(participationId);
+
+        if(!(actSenior.getUserRole().getName().equals("VÁRÚR")) && !participation.getEvent().getSupervisor().getSeniorId().equals(actSenior.getSeniorId())){
+            return new ResponseEntity<>("Only event supervisors or ADMINS can add reviews!", HttpStatus.UNAUTHORIZED);
+        }
+
+        Review review = participationService.createReviewToParticipation(participation, actSenior, text);
+        return new ResponseEntity<>(ReviewMapper.INSTANCE.reviewToReviewDto(review), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/review")

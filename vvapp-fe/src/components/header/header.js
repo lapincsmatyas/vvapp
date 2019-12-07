@@ -14,7 +14,6 @@ class Header extends React.Component{
         return(
 
             <ul className="nav nav-tabs">
-
                 { this.props.current && (<>
                 <li className="nav-item">
                     <NavLink activeClassName="active" className="nav-link" to="/seniors">Seniorok</NavLink>
