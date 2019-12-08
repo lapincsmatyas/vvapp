@@ -6,11 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.EventRoleDTO;
 import vv.helper.mapper.EventRoleMapper;
-import vv.model.AuthSchTokenResponse;
 import vv.model.EventRole;
-import vv.model.EventType;
-import vv.model.Senior;
-import vv.service.AuthSchService;
 import vv.service.EventRoleService;
 import vv.service.EventTypeService;
 import vv.service.SeniorService;
@@ -32,12 +28,6 @@ public class EventRoleResource {
     @Autowired
     SeniorService seniorService;
 
-    @Autowired
-    AuthSchService authSchService;
-
-    @Autowired
-    AuthSchTokenResponse authSchTokenResponse;
-
     @GetMapping
     public List<EventRoleDTO> getAllEventRoles(){
         List<EventRole> eventRoles = eventRoleService.getAllEventRoles();
@@ -47,12 +37,7 @@ public class EventRoleResource {
 
     @PostMapping
     public ResponseEntity addEventRole(@RequestBody EventRoleDTO eventRoleDTO){
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
-        if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
-            return new ResponseEntity<>("Only ADMIN users can create event roles!", HttpStatus.UNAUTHORIZED);
-        }
-
-        EventRole eventRole = EventRoleMapper.INSTANCE.eventRoleDtoToEventType(eventRoleDTO);
+           EventRole eventRole = EventRoleMapper.INSTANCE.eventRoleDtoToEventType(eventRoleDTO);
         eventRoleService.saveEventRole(eventRole);
         return new ResponseEntity<>(EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole), HttpStatus.OK);
     }

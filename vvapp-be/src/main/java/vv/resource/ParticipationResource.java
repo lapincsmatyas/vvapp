@@ -26,12 +26,6 @@ public class ParticipationResource {
     @Autowired
     SeniorService seniorService;
 
-    @Autowired
-    AuthSchTokenResponse authSchTokenResponse;
-
-    @Autowired
-    AuthSchService authSchService;
-
     @GetMapping
     public List<ParticipationDTO> getAllParticipations() {
         List<Participation> events = participationService.getAllParticipations();
@@ -47,16 +41,13 @@ public class ParticipationResource {
     public ResponseEntity addReviewToParticipation(
             @PathVariable("id") long participationId,
             @RequestBody String text) {
-
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        /*
         Participation participation = participationService.getParticipationById(participationId);
-
-        if(!(actSenior.getUserRole().getName().equals("VÁRÚR")) && !participation.getEvent().getSupervisor().getSeniorId().equals(actSenior.getSeniorId())){
-            return new ResponseEntity<>("Only event supervisors or ADMINS can add reviews!", HttpStatus.UNAUTHORIZED);
-        }
-
         Review review = participationService.createReviewToParticipation(participation, actSenior, text);
         return new ResponseEntity<>(ReviewMapper.INSTANCE.reviewToReviewDto(review), HttpStatus.OK);
+
+         */
+        return null;
     }
 
     @GetMapping(value = "/{id}/review")

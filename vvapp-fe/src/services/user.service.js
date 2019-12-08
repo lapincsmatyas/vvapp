@@ -1,7 +1,7 @@
 class UserService{
-    async getCurrentUser(code){
+    async getCurrentUser(){
         console.log(process.env.REACT_APP_SERVER_ADDRESS);
-        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/user/current?authorizationCode=${code}`)
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/oauth2/authorization/authsch`)
         .then(res => res.json())
         .then(data => {
             return data;

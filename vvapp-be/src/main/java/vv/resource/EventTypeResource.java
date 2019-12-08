@@ -32,12 +32,6 @@ public class EventTypeResource {
     @Autowired
     SeniorService seniorService;
 
-    @Autowired
-    AuthSchTokenResponse authSchTokenResponse;
-
-    @Autowired
-    AuthSchService authSchService;
-
     @GetMapping
     public List<EventTypeDTO> getAllEventTypes(){
         List<EventType> eventTypes = eventTypeService.getAllEventTypes();
@@ -46,12 +40,7 @@ public class EventTypeResource {
 
     @PostMapping
     public ResponseEntity addEventType(@RequestBody EventTypeDTO eventTypeDTO){
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
-        if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
-            return new ResponseEntity<>("Only ADMIN users can create event roles!", HttpStatus.UNAUTHORIZED);
-        }
-
-        EventType eventType = EventTypeMapper.INSTANCE.eventTypeDtoToEventType(eventTypeDTO);
+           EventType eventType = EventTypeMapper.INSTANCE.eventTypeDtoToEventType(eventTypeDTO);
         eventTypeService.saveEventType(eventType);
         return new ResponseEntity<>(EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType), HttpStatus.OK);
     }

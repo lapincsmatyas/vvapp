@@ -11,6 +11,7 @@ import Header from "./components/header/header";
 import EventTypes from "./components/event-types/event-types";
 import Profile from "./components/profile/profile";
 import User from "./components/user/user";
+import EventService from "./services/event.service";
 
 class App extends React.Component{
     setCurrent = current => {
@@ -22,13 +23,18 @@ class App extends React.Component{
     super(props);
     this.state = {
         current: null,
+        events: [],
         setCurrent: this.setCurrent
     };
-
+    this.eventService = new EventService();
     this.userService = new UserService();
   }
 
   componentDidMount() {
+        this.userService.getCurrentUser().then(result => {
+
+        })
+        /*
         console.log(process.env.REACT_APP_SERVER_PORT);
       const code =
           window.location.href.match(/code=(.*)/) &&
@@ -38,12 +44,21 @@ class App extends React.Component{
               this.setState({current: result});
           })
       };
+
+         */
   }
 
 
 
     render() {
+        return(
+            <>
+
+            </>
+        )
+        /*
       return (
+
           <>
               <Header current={this.state.current} />
               {this.state.current &&
@@ -61,7 +76,11 @@ class App extends React.Component{
                   </CurrentUserContext.Provider>
               }
         </>
+
+
       );
+
+         */
   }
 }
 
