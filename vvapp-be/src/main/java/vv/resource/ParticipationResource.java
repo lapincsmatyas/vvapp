@@ -48,7 +48,7 @@ public class ParticipationResource {
             @PathVariable("id") long participationId,
             @RequestBody String text) {
 
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         Participation participation = participationService.getParticipationById(participationId);
 
         if(!(actSenior.getUserRole().getName().equals("VÁRÚR")) && !participation.getEvent().getSupervisor().getSeniorId().equals(actSenior.getSeniorId())){

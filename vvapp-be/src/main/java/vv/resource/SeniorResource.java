@@ -1,6 +1,7 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import vv.service.AuthSchService;
 import vv.service.ParticipationService;
 import vv.service.SeniorService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +64,7 @@ public class SeniorResource {
 
     @PostMapping
     public ResponseEntity addSenior(@RequestBody SeniorDTO seniorDTO){
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
             return new ResponseEntity<>("Only ADMIN users can add events to seniors!",HttpStatus.UNAUTHORIZED);
         }
@@ -83,7 +86,7 @@ public class SeniorResource {
 
     @PostMapping(value = "/{seniorId}/events")
     public ResponseEntity addEventToSenior(@PathVariable("seniorId") long seniorId, @RequestParam long eventId, @RequestParam long eventRoleId){
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         Senior senior = seniorService.getSeniorById(seniorId);
         if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
             return new ResponseEntity<>("Only ADMIN users can add events to seniors!",HttpStatus.UNAUTHORIZED);
@@ -98,7 +101,7 @@ public class SeniorResource {
 
     @PatchMapping(value = "/{seniorId}")
     public ResponseEntity patchSenior(@PathVariable("seniorId") long seniorId, @RequestBody SeniorDTO seniorDTO){
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         Senior senior = seniorService.getSeniorById(seniorId);
         if(!actSenior.getUserRole().getName().equals("VÁRÚR") && !senior.getSeniorId().equals(actSenior.getSeniorId())){
             return new ResponseEntity<>("Only ADMINS and profile owners can edit profiles!",HttpStatus.UNAUTHORIZED);

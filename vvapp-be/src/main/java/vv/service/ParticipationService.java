@@ -2,6 +2,7 @@ package vv.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vv.helper.notification.EmailNotificationSender;
 import vv.model.*;
 import vv.repository.ParticipationRepository;
 import vv.repository.ReviewRepository;
@@ -9,6 +10,7 @@ import vv.repository.ReviewRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ParticipationService {
@@ -27,6 +29,9 @@ public class ParticipationService {
 
     @Autowired
     ReviewRepository reviewRepository;
+
+    @Autowired
+    EmailNotificationSender emailNotificationSender;
 
     public List<Participation> getAllParticipations(){
         return participationRepository.findAll();
@@ -61,6 +66,11 @@ public class ParticipationService {
         review.setParticipation(participation);
         review.setText(text);
         review.setDate(new Date());
+
+        List<Senior> adminsOfGroup = seniorService.getAdminsOfGroup(participation.getSenior().getGroup());
+        String[] to = adminsOfGroup.stream().map(admin -> admin.getEmail()).collect(Collectors.toList()).toArray(new String[0]);
+        emailNotificationSender.sendEmailOfReview(to, review);
+
         reviewRepository.save(review);
         return review;
     }

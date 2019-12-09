@@ -58,7 +58,7 @@ public class EventResource {
 
     @PostMapping
     public ResponseEntity addEvent(@RequestBody EventDTO eventDTO) {
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
             return new ResponseEntity<>("Only ADMIN users can create events!",HttpStatus.UNAUTHORIZED);
         }
@@ -71,7 +71,7 @@ public class EventResource {
 
     @PostMapping(value = "/{eventId}/seniors")
     public ResponseEntity addSeniorToEvent(@PathVariable long eventId, @RequestParam long seniorId, @RequestParam long eventRoleId) {
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         Senior senior = seniorService.getSeniorById(seniorId);
         if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
             return new ResponseEntity<>("Only ADMIN users can add seniors to event!",HttpStatus.UNAUTHORIZED);

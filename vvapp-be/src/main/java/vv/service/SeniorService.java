@@ -3,6 +3,7 @@ package vv.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vv.model.Senior;
+import vv.model.SeniorGroup;
 import vv.repository.SeniorRepository;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public class SeniorService {
     public Senior getSeniorByEmail(String email){
         return seniorRepository.findByEmail(email);
     }
+
+    public List<Senior> getAdminsOfGroup(SeniorGroup group) { return seniorRepository.findAdminsOfGroup(group);}
 }

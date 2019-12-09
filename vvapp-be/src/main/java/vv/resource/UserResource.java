@@ -1,6 +1,7 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.SeniorDTO;
 import vv.dto.SeniorDetailDTO;
@@ -11,6 +12,8 @@ import vv.model.Senior;
 import vv.service.AuthSchService;
 import vv.service.SeniorService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @CrossOrigin
@@ -29,11 +32,14 @@ public class UserResource {
 
     //TODO implement autentication
     @GetMapping(value = "/current")
-    public SeniorDTO getCurrentUser(@RequestParam(value="authorizationCode", required = false)String authorizationCode) {
+    public SeniorDTO getCurrentUser(@RequestParam(value="authorizationCode", required = false)String authorizationCode, HttpServletRequest request, HttpSession httpSession) {
+
+        httpSession.setAttribute("alma","alma");
+
         if(this.authSchTokenResponse.getAccess_token() == null)
             authSchService.getToken(authorizationCode);
 
-        AuthSchResponse authSchResponse = authSchService.getData(authSchTokenResponse);
+        AuthSchResponse authSchResponse = authSchService.getData();
 
         Senior senior = seniorService.getSeniorByAuthSchId(authSchResponse.getInternal_id());
         if(senior == null){

@@ -46,7 +46,7 @@ public class EventTypeResource {
 
     @PostMapping
     public ResponseEntity addEventType(@RequestBody EventTypeDTO eventTypeDTO){
-        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData(authSchTokenResponse).getInternal_id());
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
         if(!(actSenior.getUserRole().getName().equals("VÁRÚR"))){
             return new ResponseEntity<>("Only ADMIN users can create event roles!", HttpStatus.UNAUTHORIZED);
         }

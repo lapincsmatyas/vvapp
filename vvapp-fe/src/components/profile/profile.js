@@ -185,7 +185,7 @@ class Profile extends React.Component{
                             )
                         }
 
-                        { (this.state.senior.seniorId === this.context.current.seniorId || this.context.current.userRole.name === "VÁRÚR") &&
+
                             <div>
                                 <button className={"btn " + "btn" + (this.state.edit ? "-success" : "-primary") + " btn-sm"}
                                         onClick={this.editSenior}>{(this.state.edit ? "Mentés" : "Szerkesztés")}</button>
@@ -195,7 +195,7 @@ class Profile extends React.Component{
                                         onClick={this.onCancel}>Mégse</button>
                                     }
                             </div>
-                        }
+
                     </div>
                 </div>
             </div>

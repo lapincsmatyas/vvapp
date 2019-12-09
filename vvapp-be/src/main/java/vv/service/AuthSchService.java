@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.util.UriComponentsBuilder;
 import vv.model.AuthSchResponse;
 import vv.model.AuthSchTokenResponse;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Service
@@ -56,7 +58,7 @@ public class AuthSchService {
         this.authSchTokenResponse.setToken_type(authSchTokenResponse.getToken_type());
     }
 
-    public AuthSchResponse getData(AuthSchTokenResponse authSchTokenResponse){
+    public AuthSchResponse getData(){
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 

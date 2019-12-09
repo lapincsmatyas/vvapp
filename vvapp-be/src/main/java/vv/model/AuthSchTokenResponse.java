@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.io.Serializable;
+
 @Component
-@SessionScope
-public class AuthSchTokenResponse {
+public class AuthSchTokenResponse implements Serializable {
     private String access_token;
     private int expires_in;
     private String token_type;
