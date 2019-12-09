@@ -1,6 +1,5 @@
 import React from 'react'
 import EventService from "../../services/event.service";
-import EventDetail from "../events/event-detail";
 import {Route, Switch} from "react-router-dom";
 import EventTypeDetail from "./event-type-detail";
 import EventTypeList from "./event-type-list";

@@ -5,6 +5,7 @@ public class ParticipationDTO {
     private EventDTO event;
     private EventRoleDTO eventRole;
     private SeniorDTO senior;
+    private boolean state;
 
     public Long getParticipationId() {
         return participationId;
@@ -36,5 +37,13 @@ public class ParticipationDTO {
 
     public void setSenior(SeniorDTO senior) {
         this.senior = senior;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

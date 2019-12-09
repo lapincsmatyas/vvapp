@@ -38,7 +38,7 @@ class SeniorDetail extends React.Component{
                            <div className="card-text">
                                <p>Email: {this.state.senior.email}</p>
                                <p>Mobile: {this.state.senior.mobile}</p>
-                               <p>Gárda: {this.state.senior.group.name}</p>
+                               <p>Gárda: {this.state.senior.group && this.state.senior.group.name}</p>
                                <h6>Részvételek</h6>
                                    {
                                        this.state.senior.participations.length > 0 ? (

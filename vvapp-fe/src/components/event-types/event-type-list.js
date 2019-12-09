@@ -1,9 +1,5 @@
 import React from 'react'
-import EventService from "../../services/event.service";
-import {Link, Route, Switch} from "react-router-dom";
-import AddSeniorToEventForm from "../events/add-senior-to-event-form";
-import EventTypeDetail from "./event-type-detail";
-import AddEventForm from "../events/add-event-form";
+import {Link, Route} from "react-router-dom";
 import AddEventTypeForm from "./add-event-type-form";
 import CurrentUserContext from "../../CurrentUserContext";
 

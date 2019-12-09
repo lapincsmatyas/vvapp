@@ -9,8 +9,11 @@ import vv.helper.mapper.SeniorMapper;
 import vv.model.AuthSchResponse;
 import vv.model.AuthSchTokenResponse;
 import vv.model.Senior;
+import vv.model.SeniorGroup;
 import vv.service.AuthSchService;
+import vv.service.SeniorGroupService;
 import vv.service.SeniorService;
+import vv.service.UserRoleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +32,12 @@ public class UserResource {
 
     @Autowired
     AuthSchService authSchService;
+
+    @Autowired
+    SeniorGroupService seniorGroupService;
+
+    @Autowired
+    UserRoleService userRoleService;
 
     //TODO implement autentication
     @GetMapping(value = "/current")
@@ -49,6 +58,8 @@ public class UserResource {
                 senior.setEmail(authSchResponse.getMail());
                 senior.setName(authSchResponse.getDisplayName());
                 senior.setMobile(authSchResponse.getMobile());
+                senior.setGroup(seniorGroupService.getAllGroups().get(0));
+                senior.setUserRole(userRoleService.getAllUserRoles().get(0));
             } else{
                 senior.setAuthSchId(authSchResponse.getInternal_id());
             }

@@ -12,6 +12,7 @@ import vv.model.*;
 import vv.repository.EventRoleRepository;
 import vv.service.*;
 
+import javax.servlet.http.Part;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,5 +67,26 @@ public class ParticipationResource {
         return reviews.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
     }
 
+    @PostMapping(value = "/{id}/accept")
+    public ResponseEntity addReviewToParticipation(
+            @PathVariable("id") long participationId,
+            @RequestBody boolean newValue) {
+        Senior actSenior = seniorService.getSeniorByAuthSchId(authSchService.getData().getInternal_id());
+        Participation participation = participationService.getParticipationById(participationId);
+
+        if(!(actSenior.getUserRole().getName().equals("VÁRÚR")) && !participation.getEvent().getSupervisor().getSeniorId().equals(actSenior.getSeniorId())){
+            return new ResponseEntity<>("Only event supervisors or ADMINS can add reviews!", HttpStatus.UNAUTHORIZED);
+        }
+        if(newValue) {
+            participation.setState(newValue);
+            participationService.save(participation);
+            return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
+        }
+        else {
+            participationService.delete(participation);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        }
+    }
 
 }

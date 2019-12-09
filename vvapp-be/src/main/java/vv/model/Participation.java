@@ -27,6 +27,8 @@ public class Participation {
     @OneToMany(mappedBy = "participation")
     private Set<Review> reviews;
 
+    private boolean state;
+
     public Senior getSenior() {
         return senior;
     }
@@ -65,5 +67,13 @@ public class Participation {
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

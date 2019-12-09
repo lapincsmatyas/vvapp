@@ -1,10 +1,8 @@
 import React from "react"
 import SeniorList from "./senior-list";
 import SeniorService from "../../services/senior.service";
-import SeniorDetail from "./senior-detail";
 import {Route, Switch} from "react-router-dom";
 import Profile from "../profile/profile";
-import AddSeniorForm from "./add-senior-form";
 
 class Seniors extends React.Component{
     constructor(props) {

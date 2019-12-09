@@ -113,6 +113,21 @@ class EventService{
             console.log(error);
         })
     }
+
+    addSeniorSignUpToEvent(event, senior, role) {
+        console.log(event, senior, role);
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event/${event.eventId}/pending?seniorId=${senior.seniorId}&eventRoleId=${role.eventRoleId}`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.json()
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 }
 
 export default EventService

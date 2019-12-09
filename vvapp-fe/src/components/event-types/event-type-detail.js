@@ -1,6 +1,5 @@
 import React from 'react'
 import EventService from "../../services/event.service";
-import AddEventTypeForm from "./add-event-type-form";
 import AddEventRoleForm from "../event-roles/add-event-role-form";
 import CurrentUserContext from "../../CurrentUserContext";
 
@@ -53,7 +52,7 @@ class EventTypeDetail extends React.Component{
                     <p>Szerepek:</p>
                     <ul>
                         {this.state.eventType.eventRoles.map(eventRole => (
-                            <li>{eventRole.name}</li>
+                            <li key={eventRole.eventRoleId}>{eventRole.name}</li>
                         ))}
                     </ul>
                 </div>

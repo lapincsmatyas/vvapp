@@ -83,4 +83,11 @@ public class EventResource {
         Participation participation = participationService.createParticipation(eventId, seniorId, eventRoleId);
         return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/{eventId}/pending")
+    public ResponseEntity addPendingParticipation(@PathVariable long eventId, @RequestParam long seniorId, @RequestParam long eventRoleId) {
+
+        Participation participation = participationService.createPendingParticipation(eventId, seniorId, eventRoleId);
+        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
+    }
 }

@@ -5,6 +5,8 @@ import ParticipationService from "../../services/participation.service";
 import AddReviewForm from "../review/add-review-form";
 import CurrentUserContext from "../../CurrentUserContext";
 import ReviewService from "../../services/review.service";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheckCircle, faQuestionCircle, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 
 class Participation extends React.Component{
     static contextType = CurrentUserContext;
@@ -51,6 +53,26 @@ class Participation extends React.Component{
     render() {
         return (
             <>
+                {this.props.participation.state === false &&
+                <span>
+                    {(this.context.current.userRole.name === "VÁRÚR" || this.context.current.seniorId === this.props.participation.event.supervisor.seniorId) ?
+                        <>
+                            <FontAwesomeIcon className={"mr-1"}
+                                             onClick={() => this.props.onAccept(this.props.participation)}
+                                             style={{color: "green", cursor: "pointer"}} icon={faCheckCircle}/>
+                            <FontAwesomeIcon onClick={() => this.props.onDecline(this.props.participation)}
+                                             style={{color: "red", cursor: "pointer"}} icon={faTimesCircle}/>
+
+                        </> :
+                        <>
+                            <FontAwesomeIcon className={"mr-1"} style={{color: "blue", cursor: "pointer"}}
+                                             icon={faQuestionCircle}/>
+
+                        </>
+                    }
+                </span>
+                }
+
                 <span className="pl-1 mr-1">
                     <Link to={`/events/event/${this.props.participation.event.eventId}`}>
                         {this.props.participation.event.name}
@@ -82,7 +104,7 @@ class Participation extends React.Component{
                             </div>
                     }
                 </span>
-                {
+                { this.props.participation.state === true &&
                     <div>
                         {(this.state.participation && this.state.participation.reviews && this.state.participation.event.supervisor.seniorId === this.context.current.seniorId) && !this.state.showAddReview &&
                             <button className="btn btn-success btn-sm ml-4 m-1" onClick={() => this.setState({showAddReview: true})}>Értékelés</button>

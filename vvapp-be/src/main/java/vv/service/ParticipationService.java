@@ -46,6 +46,7 @@ public class ParticipationService {
         participation.setEvent(event);
         participation.setSenior(senior);
         participation.setEventRole(eventRole);
+        participation.setState(true);
 
         return participationRepository.save(participation);
     }
@@ -80,5 +81,27 @@ public class ParticipationService {
         if(participation == null)
             return null;
         return new ArrayList<>(participation.getReviews());
+    }
+
+    public void save(Participation participation) {
+        this.participationRepository.save(participation);
+    }
+
+    public void delete(Participation participation) {
+        participationRepository.delete(participation);
+    }
+
+    public Participation createPendingParticipation(long eventId, long seniorId, long eventRoleId) {
+        Event event = eventService.getEventById(eventId);
+        Senior senior = seniorService.getSeniorById(seniorId);
+        EventRole eventRole = eventRoleService.getEventRoleById(eventRoleId);
+
+        Participation participation = new Participation();
+        participation.setEvent(event);
+        participation.setSenior(senior);
+        participation.setEventRole(eventRole);
+        participation.setState(false);
+
+        return participationRepository.save(participation);
     }
 }

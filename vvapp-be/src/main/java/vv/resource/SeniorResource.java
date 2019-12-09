@@ -16,9 +16,7 @@ import vv.model.AuthSchResponse;
 import vv.model.AuthSchTokenResponse;
 import vv.model.Participation;
 import vv.model.Senior;
-import vv.service.AuthSchService;
-import vv.service.ParticipationService;
-import vv.service.SeniorService;
+import vv.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,6 +40,12 @@ public class SeniorResource {
 
     @Autowired
     AuthSchService authSchService;
+
+    @Autowired
+    SeniorGroupService seniorGroupService;
+
+    @Autowired
+    UserRoleService userRoleService;
 
     @GetMapping
     public List<SeniorDTO> getAllSeniors(){
@@ -70,6 +74,8 @@ public class SeniorResource {
         }
 
         Senior senior = SeniorMapper.INSTANCE.seniorDtoToSenior(seniorDTO);
+        senior.setGroup(actSenior.getGroup());
+        senior.setUserRole(userRoleService.getAllUserRoles().get(0));
         seniorService.saveSenior(senior);
         return new ResponseEntity<>(SeniorMapper.INSTANCE.seniorToSeniorDto(senior), HttpStatus.OK);
     }

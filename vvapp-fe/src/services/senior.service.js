@@ -22,7 +22,8 @@ class SeniorService{
     }
 
     async addNewSenior(newSenior){
-        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}:8080/senior`, {
+        console.log(newSenior);
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/senior`, {
             method: "POST",
             mode: "cors",
             headers: {

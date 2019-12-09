@@ -1,6 +1,8 @@
 package vv.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vv.dto.ParticipationDTO;
 import vv.dto.ReviewDTO;
@@ -43,11 +45,11 @@ public class ReviewResource {
     }
 
     @DeleteMapping(value="/{id}")
-    public Review getAllReviewsOfParticipation(
+    public ResponseEntity getAllReviewsOfParticipation(
             @PathVariable("id") long id) {
 
         Review review = reviewService.getReviewById(id);
         reviewService.deleteReview(review);
-        return review;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

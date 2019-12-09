@@ -1,15 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, NavLink, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import CurrentUserContext from "./CurrentUserContext";
 import UserService from "./services/user.service";
 import Seniors from "./components/seniors/seniors";
 import Events from "./components/events/events";
-import SeniorDetail from "./components/seniors/senior-detail";
-import EventDetail from "./components/events/event-detail";
 import AddSeniorToEventForm from "./components/events/add-senior-to-event-form";
 import Header from "./components/header/header";
 import EventTypes from "./components/event-types/event-types";
-import Profile from "./components/profile/profile";
 import User from "./components/user/user";
 
 class App extends React.Component{

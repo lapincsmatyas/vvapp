@@ -25,6 +25,21 @@ class ParticipationService {
             console.log(error);
         })
     }
+
+    acceptOrDecline(participation, newValue) {
+        return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/participation/${participation.participationId}/accept`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: newValue
+        }).then(response => {
+            return response.json()
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 }
 
 export default ParticipationService
