@@ -19,7 +19,8 @@ import java.io.Serializable;
 import java.util.*;
 
 @Service
-public class AuthSchService {
+@SessionScope
+public class AuthSchService implements Serializable {
 
     @Value("${authsch.client_id}")
     private String client_id;
@@ -78,5 +79,12 @@ public class AuthSchService {
         restTemplate.setMessageConverters(messageConverters);
 
         return restTemplate.getForObject(builder.toUriString(), AuthSchResponse.class);
+    }
+
+    public boolean hasAccessToken() {
+        String accessToken = this.authSchTokenResponse.getAccess_token();
+        if(this.authSchTokenResponse.getAccess_token() == null)
+            return false;
+        return true;
     }
 }

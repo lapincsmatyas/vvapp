@@ -19,13 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
-@CrossOrigin
 @RestController
+@CrossOrigin(origins = "http://152.66.178.92:3000", allowCredentials = "true")
 @RequestMapping("/user")
 public class UserResource {
-
-    @Autowired
-    AuthSchTokenResponse authSchTokenResponse;
 
     @Autowired
     SeniorService seniorService;
@@ -42,10 +39,10 @@ public class UserResource {
     //TODO implement autentication
     @GetMapping(value = "/current")
     public SeniorDTO getCurrentUser(@RequestParam(value="authorizationCode", required = false)String authorizationCode, HttpServletRequest request, HttpSession httpSession) {
+        httpSession.invalidate();
+        request.getSession();
 
-        httpSession.setAttribute("alma","alma");
-
-        if(this.authSchTokenResponse.getAccess_token() == null)
+        if(!this.authSchService.hasAccessToken())
             authSchService.getToken(authorizationCode);
 
         AuthSchResponse authSchResponse = authSchService.getData();
@@ -60,9 +57,9 @@ public class UserResource {
                 senior.setMobile(authSchResponse.getMobile());
                 senior.setGroup(seniorGroupService.getAllGroups().get(0));
                 senior.setUserRole(userRoleService.getAllUserRoles().get(0));
-            } else{
-                senior.setAuthSchId(authSchResponse.getInternal_id());
+
             }
+            senior.setAuthSchId(authSchResponse.getInternal_id());
         }
         senior.setLastLogin(new Date());
         senior = seniorService.saveSenior(senior);

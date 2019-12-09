@@ -26,6 +26,7 @@ class SeniorService{
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/senior`, {
             method: "POST",
             mode: "cors",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -41,7 +42,7 @@ class SeniorService{
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/senior/${senior.seniorId}`, {
             method: "PATCH",
             mode: "cors",
-            credentials: 'same-origin',
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },

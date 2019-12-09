@@ -15,7 +15,7 @@ import vv.service.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://152.66.178.92:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/event-type")
 public class EventTypeResource {

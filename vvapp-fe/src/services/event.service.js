@@ -47,6 +47,7 @@ class EventService{
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event`, {
             method: "POST",
             mode: "cors",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -62,6 +63,7 @@ class EventService{
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-type`, {
             method: "POST",
             mode: "cors",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -88,6 +90,7 @@ class EventService{
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event-role`, {
             method: "POST",
             mode: "cors",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -103,6 +106,7 @@ class EventService{
         console.log(event, senior, role);
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event/${event.eventId}/seniors?seniorId=${senior.seniorId}&eventRoleId=${role.eventRoleId}`, {
             method: "POST",
+            credentials: "include",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"
@@ -118,6 +122,7 @@ class EventService{
         console.log(event, senior, role);
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/event/${event.eventId}/pending?seniorId=${senior.seniorId}&eventRoleId=${role.eventRoleId}`, {
             method: "POST",
+            credentials: "include",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"

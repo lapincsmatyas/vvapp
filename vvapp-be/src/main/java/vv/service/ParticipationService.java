@@ -102,6 +102,12 @@ public class ParticipationService {
         participation.setEventRole(eventRole);
         participation.setState(false);
 
+        List<Senior> adminsOfGroup = seniorService.getAdminsOfGroup(participation.getSenior().getGroup());
+        List<String> to = adminsOfGroup.stream().map(admin -> admin.getEmail()).collect(Collectors.toList());
+        to.add(participation.getEvent().getSupervisor().getEmail());
+
+        emailNotificationSender.sendEmailOfSignUp(to.toArray(new String[0]), participation);
+
         return participationRepository.save(participation);
     }
 }

@@ -14,6 +14,7 @@ class ParticipationService {
         console.log(senior);
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/participation/${participation.participationId}/review?seniorId=${senior.seniorId}`, {
             method: "POST",
+            credentials: "include",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"
@@ -29,6 +30,7 @@ class ParticipationService {
     acceptOrDecline(participation, newValue) {
         return fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/participation/${participation.participationId}/accept`, {
             method: "POST",
+            credentials: "include",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"
