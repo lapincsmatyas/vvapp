@@ -9,6 +9,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.io.Serializable;
 
 @Component
+@SessionScope
 public class AuthSchTokenResponse implements Serializable {
     private String access_token;
     private int expires_in;

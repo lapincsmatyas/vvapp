@@ -26,7 +26,6 @@ class App extends React.Component{
   }
 
   componentDidMount() {
-        console.log(process.env.REACT_APP_SERVER_PORT);
       const code =
           window.location.href.match(/code=(.*)/) &&
           window.location.href.match(/code=(.*)/)[1];

@@ -65,7 +65,7 @@ class Participation extends React.Component{
 
                         </> :
                         <>
-                            <FontAwesomeIcon className={"mr-1"} style={{color: "blue", cursor: "pointer"}}
+                            <FontAwesomeIcon className={"mr-1"} style={{color: "blue"}}
                                              icon={faQuestionCircle}/>
 
                         </>

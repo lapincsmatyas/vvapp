@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
 @RestController
+@CrossOrigin(origins = "http://152.66.178.92:3000", allowCredentials = "true")
 @RequestMapping("/senior")
 public class SeniorResource {
 
