@@ -5,8 +5,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@SequenceGenerator(name = "senior_senior_id_seq", sequenceName = "senior_senior_id_seq")
-@SequenceGenerator(name = "senior_senior_id_seq", sequenceName = "senior_senior_id_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "senior_senior_id_seq", sequenceName = "senior_senior_id_seq", initialValue = 1)
 public class Senior {
 
     @Id

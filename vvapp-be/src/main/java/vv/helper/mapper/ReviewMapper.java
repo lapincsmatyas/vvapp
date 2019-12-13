@@ -12,7 +12,6 @@ import vv.model.Senior;
 
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
-    ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);
     ReviewDTO reviewToReviewDto(Review review);
     Review reviewDtoToReview(ReviewDTO reviewDTO);
 }

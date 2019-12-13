@@ -13,11 +13,9 @@ import vv.model.Senior;
 
 @Mapper(componentModel = "spring")
 public interface SeniorMapper {
-    SeniorMapper INSTANCE = Mappers.getMapper(SeniorMapper.class);
     SeniorDTO seniorToSeniorDto(Senior senior);
     SeniorDetailDTO seniorToSeniorDetailDto(Senior senior);
     Senior seniorDtoToSenior(SeniorDTO seniorDTO);
-
 
     ParticipationDTO participationToParticipationDto(Participation participation);
     Participation participationDtoToParticipation(ParticipationDTO participationDTO);

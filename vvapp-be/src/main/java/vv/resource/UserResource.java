@@ -36,6 +36,9 @@ public class UserResource {
     @Autowired
     UserRoleService userRoleService;
 
+    @Autowired
+    SeniorMapper seniorMapper;
+
     //TODO implement autentication
     @GetMapping(value = "/current")
     public SeniorDTO getCurrentUser(@RequestParam(value="authorizationCode", required = false)String authorizationCode, HttpServletRequest request, HttpSession httpSession) {
@@ -64,6 +67,6 @@ public class UserResource {
         senior.setLastLogin(new Date());
         senior = seniorService.saveSenior(senior);
 
-        return SeniorMapper.INSTANCE.seniorToSeniorDto(senior);
+        return seniorMapper.seniorToSeniorDto(senior);
     }
 }

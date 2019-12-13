@@ -18,9 +18,12 @@ public class SeniorGroupResource {
     @Autowired
     SeniorGroupService groupService;
 
+    @Autowired
+    SeniorGroupMapper seniorGroupMapper;
+
     @GetMapping
     public List<SeniorGroupDTO> getAllSeniors(){
         List<SeniorGroup> groups = groupService.getAllGroups();
-        return groups.stream().map(SeniorGroupMapper.INSTANCE::groupToGroupDto).collect(Collectors.toList());
+        return groups.stream().map(seniorGroupMapper::groupToGroupDto).collect(Collectors.toList());
     }
 }

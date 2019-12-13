@@ -8,7 +8,6 @@ import vv.model.Participation;
 
 @Mapper(componentModel = "spring")
 public interface ParticipationMapper {
-    ParticipationMapper INSTANCE = Mappers.getMapper(ParticipationMapper.class);
     ParticipationDTO participationToParticipationDto(Participation participation);
     Participation participationDtoToParticipation(ParticipationDTO participationDTO);
 

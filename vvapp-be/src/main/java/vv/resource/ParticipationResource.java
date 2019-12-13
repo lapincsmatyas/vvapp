@@ -32,16 +32,22 @@ public class ParticipationResource {
 
     @Autowired
     AuthSchService authSchService;
+    
+    @Autowired
+    ParticipationMapper participationMapper;
+    
+    @Autowired
+    ReviewMapper reviewMapper;
 
     @GetMapping
     public List<ParticipationDTO> getAllParticipations() {
         List<Participation> events = participationService.getAllParticipations();
-        return events.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList());
+        return events.stream().map(participationMapper::participationToParticipationDto).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
     public ParticipationDetailDTO getParticipationById(@PathVariable("id") long id) {
-        return ParticipationMapper.INSTANCE.participationToParticipationDetailDto(participationService.getParticipationById(id));
+        return participationMapper.participationToParticipationDetailDto(participationService.getParticipationById(id));
     }
 
     @PostMapping(value = "/{id}/review")
@@ -57,14 +63,14 @@ public class ParticipationResource {
         }
 
         Review review = participationService.createReviewToParticipation(participation, actSenior, text);
-        return new ResponseEntity<>(ReviewMapper.INSTANCE.reviewToReviewDto(review), HttpStatus.OK);
+        return new ResponseEntity<>(reviewMapper.reviewToReviewDto(review), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/review")
     public List<ReviewDTO> getAllReviewsOfParticipation(
             @PathVariable("id") long id) {
         List<Review> reviews = participationService.getAllReviewsOfParticipation(id);
-        return reviews.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
+        return reviews.stream().map(reviewMapper::reviewToReviewDto).collect(Collectors.toList());
     }
 
     @PostMapping(value = "/{id}/accept")
@@ -80,7 +86,7 @@ public class ParticipationResource {
         if(newValue) {
             participation.setState(newValue);
             participationService.save(participation);
-            return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
+            return new ResponseEntity<>(participationMapper.participationToParticipationDto(participation), HttpStatus.OK);
         }
         else {
             participationService.delete(participation);

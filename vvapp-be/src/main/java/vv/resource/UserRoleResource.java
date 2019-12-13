@@ -25,9 +25,12 @@ public class UserRoleResource {
     @Autowired
     UserRoleService userRoleService;
 
+    @Autowired
+    UserRoleMapper userRoleMapper;
+
     @GetMapping
     public List<UserRoleDTO> getAllUserRoles(){
         List<UserRole> roles = userRoleService.getAllUserRoles();
-        return roles.stream().map(UserRoleMapper.INSTANCE::userRoleToUserRoleDTO).collect(Collectors.toList());
+        return roles.stream().map(userRoleMapper::userRoleToUserRoleDTO).collect(Collectors.toList());
     }
 }

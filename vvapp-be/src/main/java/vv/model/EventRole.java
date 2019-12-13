@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@SequenceGenerator(name = "event_role_event_role_id_seq", sequenceName = "event_role_event_role_id_seq")
 @SequenceGenerator(name = "event_role_event_role_id_seq", sequenceName = "event_role_event_role_id_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "event_role")
 public class EventRole {

@@ -38,10 +38,16 @@ public class EventTypeResource {
     @Autowired
     AuthSchService authSchService;
 
+    @Autowired
+    EventTypeMapper eventTypeMapper;
+
+    @Autowired
+    EventMapper eventMapper;
+
     @GetMapping
     public List<EventTypeDTO> getAllEventTypes(){
         List<EventType> eventTypes = eventTypeService.getAllEventTypes();
-        return eventTypes.stream().map(EventTypeMapper.INSTANCE::eventTypeToEventTypeDto).collect(Collectors.toList());
+        return eventTypes.stream().map(eventTypeMapper::eventTypeToEventTypeDto).collect(Collectors.toList());
     }
 
     @PostMapping
@@ -51,24 +57,24 @@ public class EventTypeResource {
             return new ResponseEntity<>("Only ADMIN users can create event roles!", HttpStatus.UNAUTHORIZED);
         }
 
-        EventType eventType = EventTypeMapper.INSTANCE.eventTypeDtoToEventType(eventTypeDTO);
+        EventType eventType = eventTypeMapper.eventTypeDtoToEventType(eventTypeDTO);
         eventTypeService.saveEventType(eventType);
-        return new ResponseEntity<>(EventTypeMapper.INSTANCE.eventTypeToEventTypeDto(eventType), HttpStatus.OK);
+        return new ResponseEntity<>(eventTypeMapper.eventTypeToEventTypeDto(eventType), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/events")
     public List<EventDTO> getEventsForEventType(@PathVariable long id){
         List<Event> events = eventService.getEventsByEventTypeId(id);
-        return events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList());
+        return events.stream().map(eventMapper::eventToEventDto).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
     public EventTypeDetailDTO getEventTypeById(@PathVariable long id){
         EventTypeDetailDTO eventTypeDetailDTO =
-                EventTypeMapper.INSTANCE.eventTypeToEventTypeDetailDto(eventTypeService.getEventTypeById(id));
+                eventTypeMapper.eventTypeToEventTypeDetailDto(eventTypeService.getEventTypeById(id));
         eventTypeDetailDTO.setEvents(
                 eventService.getEventsByEventTypeId(id).stream().map(
-                        EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList()));
+                        eventMapper::eventToEventDto).collect(Collectors.toList()));
         return eventTypeDetailDTO;
     }
 }

@@ -38,10 +38,13 @@ public class EventRoleResource {
     @Autowired
     AuthSchTokenResponse authSchTokenResponse;
 
+    @Autowired
+    EventRoleMapper eventRoleMapper;
+
     @GetMapping
     public List<EventRoleDTO> getAllEventRoles(){
         List<EventRole> eventRoles = eventRoleService.getAllEventRoles();
-        List<EventRoleDTO> eventRoleDTOS = eventRoles.stream().map(EventRoleMapper.INSTANCE::eventRoleToEventRoleDto).collect(Collectors.toList());
+        List<EventRoleDTO> eventRoleDTOS = eventRoles.stream().map(eventRoleMapper::eventRoleToEventRoleDto).collect(Collectors.toList());
         return eventRoleDTOS;
     }
 
@@ -52,14 +55,14 @@ public class EventRoleResource {
             return new ResponseEntity<>("Only ADMIN users can create event roles!", HttpStatus.UNAUTHORIZED);
         }
 
-        EventRole eventRole = EventRoleMapper.INSTANCE.eventRoleDtoToEventType(eventRoleDTO);
+        EventRole eventRole = eventRoleMapper.eventRoleDtoToEventType(eventRoleDTO);
         eventRoleService.saveEventRole(eventRole);
-        return new ResponseEntity<>(EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole), HttpStatus.OK);
+        return new ResponseEntity<>(eventRoleMapper.eventRoleToEventRoleDto(eventRole), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
     public EventRoleDTO getEventRoleById(@PathVariable long id){
         EventRole eventRole = eventRoleService.getEventRoleById(id);
-        return EventRoleMapper.INSTANCE.eventRoleToEventRoleDto(eventRole);
+        return eventRoleMapper.eventRoleToEventRoleDto(eventRole);
     }
 }

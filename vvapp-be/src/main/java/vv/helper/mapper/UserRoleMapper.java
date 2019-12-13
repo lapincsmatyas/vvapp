@@ -9,7 +9,6 @@ import vv.model.UserRole;
 
 @Mapper(componentModel = "spring")
 public interface UserRoleMapper {
-    UserRoleMapper INSTANCE = Mappers.getMapper(UserRoleMapper.class);
     UserRole userRoleDtoToUserRole(UserRoleDTO userRole);
     UserRoleDTO userRoleToUserRoleDTO(UserRole userRole);
 }

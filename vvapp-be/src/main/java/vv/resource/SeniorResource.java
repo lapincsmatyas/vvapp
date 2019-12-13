@@ -47,20 +47,32 @@ public class SeniorResource {
     @Autowired
     UserRoleService userRoleService;
 
+    @Autowired
+    SeniorMapper seniorMapper;
+
+    @Autowired
+    UserRoleMapper userRoleMapper;
+
+    @Autowired
+    ParticipationMapper participationMapper;
+
+    @Autowired
+    SeniorGroupMapper seniorGroupMapper;
+
     @GetMapping
     public List<SeniorDTO> getAllSeniors(){
         List<Senior> seniors = seniorService.getAllSeniors();
-        return seniors.stream().map(SeniorMapper.INSTANCE::seniorToSeniorDto).collect(Collectors.toList());
+        return seniors.stream().map(seniorMapper::seniorToSeniorDto).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
     public SeniorDetailDTO getSeniorById(@PathVariable("id") long id) {
         Senior senior = seniorService.getSeniorById(id);
         if (senior != null) {
-            SeniorDetailDTO seniorDetailDTO = SeniorMapper.INSTANCE.seniorToSeniorDetailDto(senior);
+            SeniorDetailDTO seniorDetailDTO = seniorMapper.seniorToSeniorDetailDto(senior);
             seniorDetailDTO.setParticipations(
                     senior.getParticipations().stream().map(
-                            SeniorMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList()));
+                            seniorMapper::participationToParticipationDto).collect(Collectors.toList()));
             return seniorDetailDTO;
         }
         else return null;
@@ -73,11 +85,11 @@ public class SeniorResource {
             return new ResponseEntity<>("Only ADMIN users can add events to seniors!",HttpStatus.UNAUTHORIZED);
         }
 
-        Senior senior = SeniorMapper.INSTANCE.seniorDtoToSenior(seniorDTO);
+        Senior senior = seniorMapper.seniorDtoToSenior(seniorDTO);
         senior.setGroup(actSenior.getGroup());
         senior.setUserRole(userRoleService.getAllUserRoles().get(0));
         seniorService.saveSenior(senior);
-        return new ResponseEntity<>(SeniorMapper.INSTANCE.seniorToSeniorDto(senior), HttpStatus.OK);
+        return new ResponseEntity<>(seniorMapper.seniorToSeniorDto(senior), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/participations")
@@ -85,7 +97,7 @@ public class SeniorResource {
         Senior senior = seniorService.getSeniorById(id);
         if(senior != null){
             List<Participation> participations = new ArrayList<>(senior.getParticipations());
-            return participations.stream().map(ParticipationMapper.INSTANCE::participationToParticipationDto).collect(Collectors.toList());
+            return participations.stream().map(participationMapper::participationToParticipationDto).collect(Collectors.toList());
         }
         return null;
     }
@@ -101,7 +113,7 @@ public class SeniorResource {
             return new ResponseEntity<>("ADMINS can edit only the seniors in their group!",HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(
+        return new ResponseEntity<>(participationMapper.participationToParticipationDto(
                 participationService.createParticipation(eventId, seniorId, eventRoleId)), HttpStatus.OK);
     }
 
@@ -115,9 +127,9 @@ public class SeniorResource {
 
         if(seniorDTO.getName() != null) senior.setName(seniorDTO.getName());
         if(seniorDTO.getEmail() != null) senior.setEmail(seniorDTO.getEmail());
-        if(seniorDTO.getGroup() != null) senior.setGroup(SeniorGroupMapper.INSTANCE.groupDtoToGroup(seniorDTO.getGroup()));
+        if(seniorDTO.getGroup() != null) senior.setGroup(seniorGroupMapper.groupDtoToGroup(seniorDTO.getGroup()));
         if(seniorDTO.getMobile() != null) senior.setMobile(seniorDTO.getMobile());
-        if(seniorDTO.getUserRole() != null) senior.setUserRole(UserRoleMapper.INSTANCE.userRoleDtoToUserRole(seniorDTO.getUserRole()));
-        return new ResponseEntity<>(SeniorMapper.INSTANCE.seniorToSeniorDto(seniorService.saveSenior(senior)), HttpStatus.OK);
+        if(seniorDTO.getUserRole() != null) senior.setUserRole(userRoleMapper.userRoleDtoToUserRole(seniorDTO.getUserRole()));
+        return new ResponseEntity<>(seniorMapper.seniorToSeniorDto(seniorService.saveSenior(senior)), HttpStatus.OK);
     }
 }

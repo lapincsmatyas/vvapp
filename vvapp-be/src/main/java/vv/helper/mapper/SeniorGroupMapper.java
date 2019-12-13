@@ -7,7 +7,6 @@ import vv.model.SeniorGroup;
 
 @Mapper(componentModel = "spring")
 public interface SeniorGroupMapper {
-    SeniorGroupMapper INSTANCE = Mappers.getMapper(SeniorGroupMapper.class);
     SeniorGroupDTO groupToGroupDto(SeniorGroup group);
     SeniorGroup groupDtoToGroup(SeniorGroupDTO seniorGroupDto);
 }

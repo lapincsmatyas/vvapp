@@ -33,7 +33,7 @@ class Header extends React.Component{
                     }
                     {
                         !this.props.current &&
-                        <a href="https://auth.sch.bme.hu/site/login?response_type=code&client_id=29717259662843717351&state=123&scope=basic+displayName+sn+givenName+mail+mobile+bmeunitscope" className="navbar-text">Bejelentkezés</a>
+                        <a href="https://auth.sch.bme.hu/site/login?response_type=code&client_id=56069661181736203419&state=123&scope=basic+displayName+sn+givenName+mail+mobile+bmeunitscope" className="navbar-text">Bejelentkezés</a>
                     }
                 </li>
             </ul>

@@ -9,7 +9,6 @@ import vv.model.EventType;
 
 @Mapper(componentModel = "spring")
 public interface EventTypeMapper {
-    EventTypeMapper INSTANCE = Mappers.getMapper(EventTypeMapper.class);
     EventTypeDTO eventTypeToEventTypeDto(EventType event);
 
     EventTypeDetailDTO eventTypeToEventTypeDetailDto(EventType event);

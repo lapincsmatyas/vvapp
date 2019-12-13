@@ -42,17 +42,23 @@ public class EventResource {
     @Autowired
     AuthSchTokenResponse authSchTokenResponse;
 
+    @Autowired
+    EventMapper eventMapper;
+
+    @Autowired
+    ParticipationMapper participationMapper;
+
     @GetMapping
     public List<EventDTO> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        return events.stream().map(EventMapper.INSTANCE::eventToEventDto).collect(Collectors.toList());
+        return events.stream().map(eventMapper::eventToEventDto).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
     public EventDetailDTO getEventById(@PathVariable("id") long id) {
         Event event = eventService.getEventById(id);
         if (event != null) {
-            return EventMapper.INSTANCE.eventToEventDetailDto(event);
+            return eventMapper.eventToEventDetailDto(event);
         } else return null;
     }
 
@@ -63,10 +69,10 @@ public class EventResource {
             return new ResponseEntity<>("Only ADMIN users can create events!",HttpStatus.UNAUTHORIZED);
         }
 
-        Event event = EventMapper.INSTANCE.eventDtoToEvent(eventDTO);
+        Event event = eventMapper.eventDtoToEvent(eventDTO);
         eventService.saveEvent(event);
 
-        return new ResponseEntity<>(EventMapper.INSTANCE.eventToEventDto(event), HttpStatus.OK);
+        return new ResponseEntity<>(eventMapper.eventToEventDto(event), HttpStatus.OK);
     }
 
     @PostMapping(value = "/{eventId}/seniors")
@@ -81,13 +87,13 @@ public class EventResource {
         }
 
         Participation participation = participationService.createParticipation(eventId, seniorId, eventRoleId);
-        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
+        return new ResponseEntity<>(participationMapper.participationToParticipationDto(participation), HttpStatus.OK);
     }
 
     @PostMapping(value = "/{eventId}/pending")
     public ResponseEntity addPendingParticipation(@PathVariable long eventId, @RequestParam long seniorId, @RequestParam long eventRoleId) {
 
         Participation participation = participationService.createPendingParticipation(eventId, seniorId, eventRoleId);
-        return new ResponseEntity<>(ParticipationMapper.INSTANCE.participationToParticipationDto(participation), HttpStatus.OK);
+        return new ResponseEntity<>(participationMapper.participationToParticipationDto(participation), HttpStatus.OK);
     }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@SequenceGenerator(name = "participation_participation_id_seq", sequenceName = "participation_participation_id_seq")
 @SequenceGenerator(name = "participation_participation_id_seq", sequenceName = "participation_participation_id_seq", initialValue = 1, allocationSize = 1)
 public class Participation {
     @Id

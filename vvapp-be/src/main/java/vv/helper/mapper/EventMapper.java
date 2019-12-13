@@ -8,7 +8,6 @@ import vv.model.Event;
 
 @Mapper(componentModel = "spring")
 public interface EventMapper {
-    EventMapper INSTANCE = Mappers.getMapper(EventMapper.class);
     EventDTO eventToEventDto(Event event);
     Event eventDtoToEvent(EventDTO eventDTO);
 

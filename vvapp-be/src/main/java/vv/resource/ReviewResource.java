@@ -33,15 +33,18 @@ public class ReviewResource {
     @Autowired
     ParticipationService participationService;
 
+    @Autowired
+    ReviewMapper reviewMapper;
+
     @GetMapping
     public List<ReviewDTO> getAllReviews(){
         List<Review> seniors = reviewService.getAllReviews();
-        return seniors.stream().map(ReviewMapper.INSTANCE::reviewToReviewDto).collect(Collectors.toList());
+        return seniors.stream().map(reviewMapper::reviewToReviewDto).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
     public ReviewDTO getReviewById(@PathVariable("id") long id) {
-        return ReviewMapper.INSTANCE.reviewToReviewDto(reviewService.getReviewById(id));
+        return reviewMapper.reviewToReviewDto(reviewService.getReviewById(id));
     }
 
     @DeleteMapping(value="/{id}")

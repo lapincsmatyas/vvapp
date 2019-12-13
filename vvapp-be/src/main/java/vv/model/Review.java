@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@SequenceGenerator(name = "review_review_id_seq", sequenceName = "review_review_id_seq")
 @SequenceGenerator(name = "review_review_id_seq", sequenceName = "review_review_id_seq", initialValue = 1, allocationSize = 1)
 public class Review {
 
